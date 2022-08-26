@@ -1226,7 +1226,7 @@ const randomDate = () => {
 const rdmString = (array) => {
 	return array[Math.floor(Math.random() * array.length)];
 };
-export const fillEmployeeList = (nb) => {
+export const getEmployees = (nb) => {
 	const employees = [];
 	for (let i = 0; i < nb; i++) {
         const state = states[Math.floor(Math.random() * states.length)];
@@ -1244,5 +1244,6 @@ export const fillEmployeeList = (nb) => {
 		};
 		employees.push(employee);
 	}
-	localStorage.setItem("employees", JSON.stringify(employees));
+	// localStorage.setItem("employees", JSON.stringify(employees));
+	return employees;
 };

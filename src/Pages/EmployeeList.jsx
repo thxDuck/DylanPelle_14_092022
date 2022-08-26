@@ -4,14 +4,14 @@ import Title from "../Components/Header.jsx";
 import Nav from "../Components/Nav.jsx";
 import Table from "../Components/Table.jsx";
 import EmployeeForm from "../Components/EmployeeForm.jsx";
-import { fillEmployeeList } from "../Utils/mock";
+import { getEmployees } from "../Utils/mock";
 
 const employeeList = () => {
 	return (
-		<main>
-			<header>
+		<main id="employee-list">
 				<Title title="Current Employees" />
 				<Table />
+			<header>
 				<Nav route="/" title="Home" />
 			</header>
 		</main>

@@ -9,7 +9,7 @@ import {fillEmployeeList} from '../Utils/mock';
 
 const CreateEmployee = () => {
 	return (
-		<main>
+		<main id="employee-add">
 			<header>
 				<Title title="HRnet" />
 				<Nav title="View current Employees" route="/list"/>
