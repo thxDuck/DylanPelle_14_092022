@@ -1,9 +1,11 @@
 import React from "react";
 
 const Inputs = (props) => {
-	const { label, element, type = "text" } = props;
+	const { label, element, type } = props;
 	const employee = {};
-	const handleInputChange = () => {};
+	const handleInputChange = (e) => {
+		console.log({ target: e.target });
+	};
 	return (
 		<div className="input-group">
 			<label htmlFor={element}>{label}</label>

@@ -3,8 +3,7 @@ import React from "react";
 import Title from "../Components/Header.jsx";
 import Nav from "../Components/Nav.jsx";
 import Table from "../Components/Table.jsx";
-import EmployeeForm from "../Components/EmployeeForm.jsx";
-import { getEmployees } from "../Utils/mock";
+// import { getEmployees } from "../Utils/mock";
 
 const employeeList = () => {
 	return (
