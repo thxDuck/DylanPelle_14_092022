@@ -7,14 +7,14 @@ import EmployeeForm from "../Components/EmployeeForm.jsx";
 
 const CreateEmployee = () => {
 	return (
-		<main id="employee-add">
+		<div className="main" id="employee-add">
 			<header>
 				<Title title="HRnet" />
-				<Nav title="View current Employees" route="/list"/>
+				<Nav title="View Current Employees" route="/list" />
 			</header>
 			<h2>Create Employee</h2>
 			<EmployeeForm />
-		</main>
+		</div>
 	);
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import Input from "./Forms/Inputs.jsx";
-import SelectInput from "./Forms/Select.jsx";
+import SelectInput from "./Forms/SelectInput.jsx";
 import Datepicker from "./Forms/Datepicker.jsx";
 
 const options = {

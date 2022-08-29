@@ -5,7 +5,6 @@ import { getEmployees } from "../Utils/mock";
 const employees = getEmployees(1000);
 
 const Table = () => {
-	console.log({ employees: employees.length });
 	const [filterText, setFilterText] = useState("");
 	const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 	const filteredItems = employees.filter(

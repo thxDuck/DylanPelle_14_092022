@@ -7,13 +7,11 @@ import Table from "../Components/Table.jsx";
 
 const employeeList = () => {
 	return (
-		<main id="employee-list">
-				<Title title="Current Employees" />
-				<Table />
-			<header>
-				<Nav route="/" title="Home" />
-			</header>
-		</main>
+		<div className="main" id="employee-list">
+			<Title title="Current Employees" />
+			<Table />
+			<Nav route="/" title="Home" />
+		</div>
 	);
 };
 
