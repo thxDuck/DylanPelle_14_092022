@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 
 import EmployeeList from "../Pages/EmployeeList.jsx"
 import CreateEmployee from "../Pages/CreateEmployee.jsx"
-
 const RoutesApp = () => {
 	return (
 		<Routes>
