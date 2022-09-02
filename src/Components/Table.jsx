@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import DataTable from "react-data-table-component";
 import FilterComponent from "./FilterComponent.jsx";
 import { getEmployees } from "../Utils/mock";
+import { getColumns } from "../services/formServices.js";
+
 const employees = getEmployees(1000);
 
 const Table = () => {
 	const [filterText, setFilterText] = useState("");
 	const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+
+	const columns = getColumns();
 	const filteredItems = employees.filter(
 		(item) =>
 			(item.firstName && item.firstName.toLowerCase().includes(filterText.toLowerCase())) ||
@@ -22,49 +26,6 @@ const Table = () => {
 				item.abbreviation.toLowerCase().includes(filterText.toLowerCase())) ||
 			(item.zipCode && item.zipCode.toLowerCase().includes(filterText.toLowerCase()))
 	);
-
-	const columns = [
-		{
-			name: "firstName",
-			selector: (row) => row.firstName,
-		},
-		{
-			name: "lastName",
-			selector: (row) => row.lastName,
-		},
-		{
-			name: "dateOfBirth",
-			selector: (row) => row.dateOfBirth,
-		},
-		{
-			name: "startDate",
-			selector: (row) => row.startDate,
-		},
-		{
-			name: "department",
-			selector: (row) => row.department,
-		},
-		{
-			name: "street",
-			selector: (row) => row.street,
-		},
-		{
-			name: "city",
-			selector: (row) => row.city,
-		},
-		{
-			name: "state",
-			selector: (row) => row.state,
-		},
-		{
-			name: "abbreviation",
-			selector: (row) => row.abbreviation,
-		},
-		{
-			name: "zipCode",
-			selector: (row) => row.zipCode,
-		},
-	];
 
 	const subHeaderComponentMemo = React.useMemo(() => {
 		const handleClear = () => {
@@ -92,7 +53,7 @@ const Table = () => {
 			subHeader
 			subHeaderComponent={subHeaderComponentMemo}
 			selectableRows
-			persistTableHead
+			// persistTableHead
 		/>
 	);
 };

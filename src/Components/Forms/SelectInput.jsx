@@ -1,15 +1,15 @@
 import React from "react";
 import Select from "react-select";
-import { getOptionsForSelect } from "../../services/services";
+import { getOptionsForSelect, handleSelectChange } from "../../services/formServices";
 
 const SelectInput = (props) => {
 	const { id, label } = props;
 	const options = getOptionsForSelect(id);
-	console.log({ options });
+	
 	return (
 		<div className="input-group">
 			<label htmlFor={id}>{label}</label>
-			<Select options={options} menuPlacement="top" />
+			<Select options={options} menuPlacement="top" onChange={handleSelectChange} />
 		</div>
 	);
 };

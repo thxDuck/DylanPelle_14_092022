@@ -3,10 +3,10 @@ import Input from "./Forms/Inputs.jsx";
 import SelectInput from "./Forms/SelectInput.jsx";
 import Datepicker from "./Forms/Datepicker.jsx";
 
-import { getFormInformations } from "../services/services.js";
+import { getFormInformations } from "../services/formServices.js";
+
 const EmployeeForm = () => {
 	const form = getFormInformations();
-	console.log({ department: form.department });
 	return (
 		<form>
 			{form.informations.map((item, index) => {
@@ -16,7 +16,7 @@ const EmployeeForm = () => {
 							<SelectInput
 								key={item.key}
 								id={item.key}
-								label={item.label}
+								label={item.name}
 								type={item.type}
 							/>
 						);
@@ -25,7 +25,7 @@ const EmployeeForm = () => {
 							<Datepicker
 								key={item.key}
 								id={item.key}
-								label={item.label}
+								label={item.name}
 								type={item.type}
 							/>
 						);
@@ -34,7 +34,7 @@ const EmployeeForm = () => {
 							<Input
 								key={item.key}
 								id={item.key}
-								label={item.label}
+								label={item.name}
 								type={item.type}
 							/>
 						);
@@ -49,7 +49,7 @@ const EmployeeForm = () => {
 								<SelectInput
 									key={item.key}
 									id={item.key}
-									label={item.label}
+									label={item.name}
 									type={item.type}
 								/>
 							);
@@ -58,7 +58,7 @@ const EmployeeForm = () => {
 								<Datepicker
 									key={item.key}
 									id={item.key}
-									label={item.label}
+									label={item.name}
 									type={item.type}
 								/>
 							);
@@ -67,7 +67,7 @@ const EmployeeForm = () => {
 								<Input
 									key={item.key}
 									id={item.key}
-									label={item.label}
+									label={item.name}
 									type={item.type}
 								/>
 							);
@@ -81,6 +81,7 @@ const EmployeeForm = () => {
 				label={form.department.label}
 				type={form.department.type}
 			/>
+			
 			<input type="submit" className="submit" value="Save" />
 		</form>
 	);

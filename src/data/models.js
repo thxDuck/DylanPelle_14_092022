@@ -2,51 +2,51 @@ const models = {
 	"personnalInformations": [
 		{
 			"key": "firstName",
-			"label": "First Name",
+			"name": "First Name",
 			"type": "text"
 		},
 		{
 			"key": "lastName",
-			"label": "Last Name",
+			"name": "Last Name",
 			"type": "text"
 		},
 		{
-			"key": "birthDate",
-			"label": "Date of Birth",
+			"key": "dateOfBirth",
+			"name": "Date of Birth",
 			"type": "date"
 		},
 		{
 			"key": "startDate",
-			"label": "Start Date",
+			"name": "Start Date",
 			"type": "date"
 		}
 	],
 	"address": [
 		{
 			"key": "street",
-			"label": "Street",
+			"name": "Street",
 			"type": "text"
 		},
 		{
 			"key": "city",
-			"label": "City",
+			"name": "City",
 			"type": "text"
 		},
 		{
 			"key": "state",
-			"label": "State",
+			"name": "State",
 			"type": "select"
 		},
 		{
 			"key": "zipCode",
-			"label": "Zip Code",
+			"name": "Zip Code",
 			"type": "number"
 		}
 	],
 	"buisnessInformations": 
 		{
 			"key": "department",
-			"label": "Department",
+			"name": "Department",
 			"type": "select"
 		}
 }
