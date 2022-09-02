@@ -1,14 +1,16 @@
 import data from "../data/data.js";
 import models from "../data/models.js";
 
-export const handleInputChange = (e) => {
-	console.log({ handleInputChange: e.target.value });
+
+export const handleInputChange = (id, e) => {
+	console.log({ id, handleInputChange: e.target.value });
+	return e.target.value;
 };
-export const handleSelectChange = (e) => {
-	console.log({ handleSelectChange: e.value });
+export const handleSelectChange = (id, value) => {
+	console.log({ id, value });
 };
-export const handleDateChange = (e) => {
-	console.log({ newDate: e });
+export const handleDateChange = (id, e) => {
+	console.log({ id, newDate: e });
 };
 
 export const getFormInformations = () => {
@@ -18,7 +20,6 @@ export const getFormInformations = () => {
 		department: models.buisnessInformations,
 	};
 };
-// Todo : ajouter l'extention de l'Etat, voir le css, et le tri par colonne
 
 export const getColumns = () => {
 	const columns = [

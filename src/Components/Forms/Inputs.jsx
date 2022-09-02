@@ -1,17 +1,21 @@
 import React from "react";
 import { handleInputChange } from "../../services/formServices";
+
 const Inputs = (props) => {
-	const { label, element, type } = props;
+	const { label, element: id, type } = props;
 	const employee = {};
+	const handleChange = (e) => {
+		handleInputChange(id, e);
+	};
 	return (
 		<div className="input-group">
-			<label htmlFor={element}>{label}</label>
+			<label htmlFor={id}>{label}</label>
 			<input
 				type={type}
-				id={element}
-				name={element}
+				id={id}
+				name={id}
 				value={employee.element}
-				onChange={handleInputChange}
+				onChange={handleChange}
 			/>
 		</div>
 	);

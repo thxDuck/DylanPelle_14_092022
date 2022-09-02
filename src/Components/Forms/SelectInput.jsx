@@ -5,11 +5,13 @@ import { getOptionsForSelect, handleSelectChange } from "../../services/formServ
 const SelectInput = (props) => {
 	const { id, label } = props;
 	const options = getOptionsForSelect(id);
-	
+	const handleChange = (e) => {
+		handleSelectChange(id, e);
+	};
 	return (
 		<div className="input-group">
 			<label htmlFor={id}>{label}</label>
-			<Select options={options} menuPlacement="top" onChange={handleSelectChange} />
+			<Select options={options} menuPlacement="top" onChange={handleChange} />
 		</div>
 	);
 };
