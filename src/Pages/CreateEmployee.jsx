@@ -4,7 +4,6 @@ import Title from "../Components/Header.jsx";
 import Nav from "../Components/Nav.jsx";
 import EmployeeForm from "../Components/EmployeeForm.jsx";
 
-// import {fillEmployeeList} from '../Utils/mock';
 
 const CreateEmployee = () => {
 	return (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DataTable from "react-data-table-component";
 import FilterComponent from "./FilterComponent.jsx";
-import { getEmployees } from "../Utils/mock";
+import { getEmployees } from "../utils/mock";
 import { getColumns } from "../services/formServices.js";
 
 const employees = getEmployees(1000);

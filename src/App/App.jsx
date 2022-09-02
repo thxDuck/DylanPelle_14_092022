@@ -1,13 +1,17 @@
-import React from 'react'
+import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "../utils/store";
 
-import RoutesApp from "./Routes.jsx"
+import RoutesApp from "./Routes.jsx";
 const App = () => {
-  return (
-    <BrowserRouter>
-        <RoutesApp />
-    </BrowserRouter>
-  )
-}
+	return (
+		<Provider store={store}>
+			<BrowserRouter>
+				<RoutesApp />
+			</BrowserRouter>
+		</Provider>
+	);
+};
 
-export default App
+export default App;
