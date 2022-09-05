@@ -8,16 +8,11 @@ const Inputs = (props) => {
 	const { label, id, type } = props;
 	const dispatch = useDispatch();
 	const employee = useSelector(selectEmployee);
-	
-	const [value, setValue] = useState(employee[id]);
-	console.log('EMPLOYEE : ', employee);
+	const value = employee[id]
 	
 	
 	const handleChange = (e) => {
-		const newValue = e.target.value;
-		console.log({ id });
-		dispatch(employeeActions.setValue(id, newValue));
-		setValue(employee[id])
+		dispatch(employeeActions.setValue(id, e.target.value));
 	};
 	return (
 		<div className="input-group">

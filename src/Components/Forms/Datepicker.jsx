@@ -1,21 +1,28 @@
 import React, { useState } from "react";
-import { handleDateChange } from "../../services/formServices";
+
+import { handleInputChange } from "../../services/formServices";
+import { useDispatch, useSelector } from "react-redux";
+import * as employeeActions from "../../features/employee";
+import { selectEmployee } from "../../utils/selectors";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Datepicker = (props) => {
 	const { label, id } = props;
-	const [startDate, setStartDate] = useState(new Date());
+	const dispatch = useDispatch();
+	const employee = useSelector(selectEmployee);
+	const value = employee[id];
+
 	const handleChange = (e) => {
-		handleDateChange(id, e);
+		dispatch(employeeActions.setValue(id, e));
 	};
 	return (
 		<div className="input-group">
 			<label htmlFor={id}>{label}</label>
 			<DatePicker
-				selected={startDate}
-				onChange={(date) => setStartDate(date)}
+				selected={value}
+				// onChange={handleChange}
 				onSelect={handleChange}
 			/>
 		</div>

@@ -1,5 +1,62 @@
 import data from "../data/data.js";
 import models from "../data/models.js";
+const alphanumericRegexp = /[^a-z0-9]/gi;
+
+export const getValidDate = (date, property) => {
+	date = new Date(date)
+	const result = { success: true, date: date }
+	if (isNaN(date.getTime())) {
+		result.error = true;
+		result.msg = "Date are not valid !"
+		return false;
+	}
+
+	const dateModel = models.personnalInformations.filter(model => model.type === "date");
+	const dateToUpdate = dateModel.find(d => d.key === property)
+	const dateToCompare = dateModel.find(d => d.key !== property)
+	console.log({ dateToCompare, dateToUpdate });
+	dateToUpdate.value = date;
+	// TODO : CHeck other value !
+	console.log({ dateModel });
+	return date
+
+}
+export const checkValues = (employee, property, value) => {
+	const dataModel = models.data[property];
+	const response = { success: true, value };
+	switch (dataModel.type) {
+		case "string":
+			response.value = value.replace(alphanumericRegexp, "");
+			break;
+		case "integer":
+			response.value = parseInt(value);
+			if (isNaN(response.value)) {
+				response.success = false;
+				response.msg = "Only number is accepted !";
+				response.errorOn = property;
+			} else if (response.value <= 0) {
+				response.success = false;
+				response.msg = "Only positive number is accepted !";
+				response.errorOn = property;
+			}
+			break;
+			case "date":
+				const date = new Date(value);
+				const dateChecked = getValidDate(date, property);
+				response.value = dateChecked.date;
+			if (!dateChecked.success) {
+				response.success = false;
+				response.msg = dateChecked.msg
+				response.errorOn = property;
+			}
+
+			break;
+		default:
+			break;
+	}
+	return response;
+};
+
 
 
 export const handleInputChange = (id, e) => {

@@ -13,11 +13,13 @@ const models = {
 		{
 			key: "dateOfBirth",
 			name: "Date of Birth",
+			order: 1,
 			type: "date",
 		},
 		{
 			key: "startDate",
 			name: "Start Date",
+			order: 2,
 			type: "date",
 		},
 	],
