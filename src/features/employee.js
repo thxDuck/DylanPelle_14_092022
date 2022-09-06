@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import models from "../data/models";
 import { useSelector } from "react";
 import { selectStatus, selectEmployee } from "../utils/selectors";
-import {checkValues} from "../services/formServices";
+import {checkValues as verifyValue} from "../services/formServices";
 
 const emptyEmployee = {
 	firstName: "",
@@ -27,7 +27,7 @@ export const setValue = (property, value) => {
 		const employeeState = selectEmployee(getState());
 		console.log({ value });
 		const employee = employeeState.data;
-		const response = checkValues(employee, property, value);
+		const response = verifyValue(employee, property, value);
 		if (response.success)  {
 			dispatch(actions.setValue(property, response.value));
 			return value;

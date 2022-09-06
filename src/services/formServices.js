@@ -2,25 +2,32 @@ import data from "../data/data.js";
 import models from "../data/models.js";
 const alphanumericRegexp = /[^a-z0-9]/gi;
 
-export const getValidDate = (date, property) => {
-	date = new Date(date)
-	const result = { success: true, date: date }
+export const checkDateCoherence = (date, property) => {
+	date = new Date(date);
+	const error = { error: true, msg: "" };
 	if (isNaN(date.getTime())) {
-		result.error = true;
-		result.msg = "Date are not valid !"
+		error.error = true;
+		error.msg = "Date are not valid !";
+		return error;
+	}
+	if (date.getTime() > new Date().getTime()) {
+		error.error = true;
+		error.msg = "You can't set date after today !";
 		return false;
 	}
 
-	const dateModel = models.personnalInformations.filter(model => model.type === "date");
-	const dateToUpdate = dateModel.find(d => d.key === property)
-	const dateToCompare = dateModel.find(d => d.key !== property)
-	console.log({ dateToCompare, dateToUpdate });
+	const dateModels = models.personnalInformations.filter((model) => model.type === "date");
+	const dateToUpdate = dateModels.find((d) => d.key === property);
 	dateToUpdate.value = date;
-	// TODO : CHeck other value !
-	console.log({ dateModel });
-	return date
 
-}
+	const dateToCompare = dateModels.find((d) => d.key !== property);
+	if (!!dateToCompare.value) {
+// TODO : check values
+	}
+	console.log({ dateToCompare, dateToUpdate });
+
+	return date;
+};
 export const checkValues = (employee, property, value) => {
 	const dataModel = models.data[property];
 	const response = { success: true, value };
@@ -40,13 +47,13 @@ export const checkValues = (employee, property, value) => {
 				response.errorOn = property;
 			}
 			break;
-			case "date":
-				const date = new Date(value);
-				const dateChecked = getValidDate(date, property);
-				response.value = dateChecked.date;
-			if (!dateChecked.success) {
+		case "date":
+			const date = new Date(value);
+			response.value = date;
+			const { error } = checkDateCoherence(date, property);
+			if (!!error) {
 				response.success = false;
-				response.msg = dateChecked.msg
+				response.msg = error.msg;
 				response.errorOn = property;
 			}
 
@@ -56,8 +63,6 @@ export const checkValues = (employee, property, value) => {
 	}
 	return response;
 };
-
-
 
 export const handleInputChange = (id, e) => {
 	console.log({ id, handleInputChange: e.target.value });
