@@ -1,78 +1,42 @@
 import data from "../data/data.js";
 import models from "../data/models.js";
+import ERROR from "./errors.js";
 const alphanumericRegexp = /[^a-z0-9]/gi;
 
-export const checkDateCoherence = (date, property) => {
-	date = new Date(date);
-	const error = { error: true, msg: "" };
-	if (isNaN(date.getTime())) {
-		error.error = true;
-		error.msg = "Date are not valid !";
-		return error;
-	}
-	if (date.getTime() > new Date().getTime()) {
-		error.error = true;
-		error.msg = "You can't set date after today !";
-		return false;
-	}
+export const checkDateCoherence = (date, property, employee) => {
+	date = new Date(date).getTime();
+	if (isNaN(date)) return { error: ERROR.DATES.NOT_VALID };
+	if (date > new Date().getTime()) return { error: ERROR.DATES.OVER_TODAY };
 
-	const dateModels = models.personnalInformations.filter((model) => model.type === "date");
-	const dateToUpdate = dateModels.find((d) => d.key === property);
-	dateToUpdate.value = date;
-
-	const dateToCompare = dateModels.find((d) => d.key !== property);
-	if (!!dateToCompare.value) {
-// TODO : check values
-	}
-	console.log({ dateToCompare, dateToUpdate });
-
-	return date;
+	employee[property] = date;
+	const birth = employee.dateOfBirth;
+	const start = employee.startDate;
+	if (!birth || !start) return { checkedValue: date };
+	if (new Date(birth).getTime() >= new Date(start).getTime())
+		return { error: ERROR.DATES.COHERENCE };
+	return { checkedValue: date };
 };
-export const checkValues = (employee, property, value) => {
+export const checkValue = (employee, property, value) => {
 	const dataModel = models.data[property];
-	const response = { success: true, value };
 	switch (dataModel.type) {
 		case "string":
-			response.value = value.replace(alphanumericRegexp, "");
-			break;
+			return { checkedValue: value.replace(alphanumericRegexp, "") };
+		case "enum":
+			return checkSelect(value, property);
 		case "integer":
-			response.value = parseInt(value);
-			if (isNaN(response.value)) {
-				response.success = false;
-				response.msg = "Only number is accepted !";
-				response.errorOn = property;
-			} else if (response.value <= 0) {
-				response.success = false;
-				response.msg = "Only positive number is accepted !";
-				response.errorOn = property;
-			}
-			break;
+			value = parseInt(value);
+			if (isNaN(value)) return { error: ERROR.INTEGER.IS_NAN };
+			else if (value <= 0) return { error: ERROR.INTEGER.NEGATIVE };
+			return { checkedValue: value };
 		case "date":
-			const date = new Date(value);
-			response.value = date;
-			const { error } = checkDateCoherence(date, property);
-			if (!!error) {
-				response.success = false;
-				response.msg = error.msg;
-				response.errorOn = property;
-			}
-
-			break;
+			return checkDateCoherence(value, property, employee);
 		default:
-			break;
+			return { error: ERROR.FORM.NO_TYPE };
 	}
-	return response;
 };
-
-export const handleInputChange = (id, e) => {
-	console.log({ id, handleInputChange: e.target.value });
-	return e.target.value;
-};
-export const handleSelectChange = (id, value) => {
-	console.log({ id, value });
-};
-export const handleDateChange = (id, e) => {
-	console.log({ id, newDate: e });
+const checkSelect = (value, property) => {
+	// TODO : Check select in values, and return valid info (Model object)
+	return { checkedValue: value };
 };
 
 export const getFormInformations = () => {

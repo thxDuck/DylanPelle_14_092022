@@ -1,12 +1,17 @@
 import React from "react";
 import Select from "react-select";
-import { getOptionsForSelect, handleSelectChange } from "../../services/formServices";
+import { useDispatch, useSelector } from "react-redux";
+
+import * as employeeActions from "../../features/employee";
+import { selectEmployee } from "../../utils/selectors";
+import { getOptionsForSelect } from "../../services/formServices";
 
 const SelectInput = (props) => {
 	const { id, label } = props;
 	const options = getOptionsForSelect(id);
+	const dispatch = useDispatch()
 	const handleChange = (e) => {
-		handleSelectChange(id, e);
+		dispatch(employeeActions.setValue(id, e.value));
 	};
 	return (
 		<div className="input-group">

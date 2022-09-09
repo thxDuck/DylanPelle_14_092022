@@ -12,19 +12,14 @@ const Datepicker = (props) => {
 	const { label, id } = props;
 	const dispatch = useDispatch();
 	const employee = useSelector(selectEmployee);
-	const value = employee[id];
-
+	const date = !!employee[id] ? new Date(employee[id]) : null;
 	const handleChange = (e) => {
 		dispatch(employeeActions.setValue(id, e));
 	};
 	return (
 		<div className="input-group">
 			<label htmlFor={id}>{label}</label>
-			<DatePicker
-				selected={value}
-				// onChange={handleChange}
-				onSelect={handleChange}
-			/>
+			<DatePicker selected={date} onSelect={handleChange} />
 		</div>
 	);
 };

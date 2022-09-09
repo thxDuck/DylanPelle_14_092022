@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import models from "../data/models";
-import { useSelector } from "react";
-import { selectStatus, selectEmployee } from "../utils/selectors";
-import {checkValues as verifyValue} from "../services/formServices";
+// import models from "../data/models";
+// import { useSelector } from "react";
+import { selectEmployee } from "../utils/selectors";
+import { checkValue } from "../services/formServices";
 
 const emptyEmployee = {
 	firstName: "",
@@ -21,22 +21,21 @@ const mockedEmployee = {
 	data: { ...emptyEmployee },
 };
 
-
+export const setFormError = (error, property) => {
+	console.log({ error });
+	alert(`${error.msg}`);
+};
 export const setValue = (property, value) => {
 	return (dispatch, getState) => {
-		const employeeState = selectEmployee(getState());
-		console.log({ value });
-		const employee = employeeState.data;
-		const response = verifyValue(employee, property, value);
-		if (response.success)  {
-			dispatch(actions.setValue(property, response.value));
-			return value;
-		} else {
-			return false
+		const EmployeeStoreData = selectEmployee(getState());
+		const employee = { ...EmployeeStoreData };
+		const { error, checkedValue } = checkValue(employee, property, value);
+		if (!!error) setFormError(error, property);
+		else {
+			dispatch(actions.setValue(property, checkedValue));
 		}
 	};
 };
-
 
 const employeeSlice = createSlice({
 	name: "employee",
