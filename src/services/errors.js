@@ -21,7 +21,7 @@ const ERROR = {
 		},
 		COHERENCE: {
 			code: "05xc100",
-			msg: "Birth date can't be overstart date !",
+			msg: "Birth date can't be over start date !",
 		},
 	},
 	FORM: {

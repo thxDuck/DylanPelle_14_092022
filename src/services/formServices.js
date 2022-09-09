@@ -3,6 +3,14 @@ import models from "../data/models.js";
 import ERROR from "./errors.js";
 const alphanumericRegexp = /[^a-z0-9]/gi;
 
+const checkSelect = (value, property) => {
+	// TODO : Check select in values, and return valid info (Model object)
+	console.log({ property });
+	const model = Object.values(models).find(p => p.key === property);
+	console.log({ model });
+	return { checkedValue: value };
+};
+
 export const checkDateCoherence = (date, property, employee) => {
 	date = new Date(date).getTime();
 	if (isNaN(date)) return { error: ERROR.DATES.NOT_VALID };
@@ -34,10 +42,7 @@ export const checkValue = (employee, property, value) => {
 			return { error: ERROR.FORM.NO_TYPE };
 	}
 };
-const checkSelect = (value, property) => {
-	// TODO : Check select in values, and return valid info (Model object)
-	return { checkedValue: value };
-};
+
 
 export const getFormInformations = () => {
 	return {
