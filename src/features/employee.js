@@ -4,36 +4,18 @@ import { createSlice } from "@reduxjs/toolkit";
 import { selectEmployee } from "../utils/selectors";
 import { checkValue } from "../services/formServices";
 
-const emptyEmployee = {
-	firstName: "",
-	lastName: "",
-	dateOfBirth: "",
-	startDate: "",
-	street: "",
-	city: "",
-	state: "",
-	zipCode: "",
-	department: "",
-};
 const mockedEmployee = {
-	status: "void",
-	error: false,
-	data: { ...emptyEmployee },
+	list: [],
 };
 
 export const setFormError = (error, property) => {
 	console.log({ error });
 	alert(`${error.msg}`);
 };
-export const setValue = (property, value) => {
+export const setEmployee = (employee) => {
 	return (dispatch, getState) => {
-		const EmployeeStoreData = selectEmployee(getState());
-		const employee = { ...EmployeeStoreData };
-		const { error, checkedValue } = checkValue(employee, property, value);
-		if (!!error) setFormError(error, property);
-		else {
-			dispatch(actions.setValue(property, checkedValue));
-		}
+		// TODO : Serialize data ! :D
+		dispatch(actions.addEmployee(employee));
 	};
 };
 
@@ -53,13 +35,12 @@ const employeeSlice = createSlice({
 				return;
 			},
 		},
-		setValue: {
-			prepare: (property, value) => ({
-				payload: { property, value },
+		addEmployee: {
+			prepare: (employee) => ({
+				payload: { employee },
 			}),
 			reducer: (draft, action) => {
-				draft.status = "resolved";
-				draft.data[action.payload.property] = action.payload.value;
+				draft.list = draft.list.push(action.payload.employee);
 				return;
 			},
 		},

@@ -43,8 +43,7 @@ export const checkValue = (employee, property, value) => {
 	}
 };
 
-
-export const getFormInformations = () => {
+export const getFormStructure = () => {
 	return {
 		informations: models.personnalInformations,
 		address: models.address,
