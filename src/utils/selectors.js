@@ -1,2 +1,3 @@
-export const selectEmployee = (state) => state.employee.data;
-export const selectStatus = (state) => state.employee.status;
+export const selectAllEmployees = (state) => state.employee.employees;
+export const selectErrors = (state) => state.employee.errors;
+

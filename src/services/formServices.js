@@ -1,25 +1,26 @@
 import data from "../data/data.js";
 import models from "../data/models.js";
 import ERROR from "./errors.js";
-const alphanumericRegexp = /[^a-z0-9]/gi;
+const alphanumericRegexp = /[^a-z0-9] /gi;
 
 const checkSelect = (value, property) => {
-	// TODO : Check select in values, and return valid info (Model object)
-	console.log({ property });
-	const model = Object.values(models).find(p => p.key === property);
-	console.log({ model });
-	return { checkedValue: value };
+	if (!value) return { error: ERROR.FORM.REQUIRED };
+	const options = data.options;
+	const selectedOption = options[property].find(
+		(date) => date.name.toLowerCase() === value.toLowerCase()
+		);
+	return !!selectedOption ? { checkedValue: selectedOption } :  { error: ERROR.FORM.REQUIRED };
 };
 
 export const checkDateCoherence = (date, property, employee) => {
 	date = new Date(date).getTime();
 	if (isNaN(date)) return { error: ERROR.DATES.NOT_VALID };
-	if (date > new Date().getTime()) return { error: ERROR.DATES.OVER_TODAY };
 
 	employee[property] = date;
 	const birth = employee.dateOfBirth;
 	const start = employee.startDate;
 	if (!birth || !start) return { checkedValue: date };
+	if (birth > new Date().getTime()) return { error: ERROR.DATES.OVER_TODAY };
 	if (new Date(birth).getTime() >= new Date(start).getTime())
 		return { error: ERROR.DATES.COHERENCE };
 	return { checkedValue: date };
@@ -28,8 +29,10 @@ export const checkValue = (employee, property, value) => {
 	const dataModel = models.data[property];
 	switch (dataModel.type) {
 		case "string":
-			return { checkedValue: value.replace(alphanumericRegexp, "") };
+			value = value.replace(alphanumericRegexp, "");
+			return value.length > 2 ? { checkedValue: value } : { error: ERROR.STRING.LENGTH };
 		case "enum":
+			value = value.value;
 			return checkSelect(value, property);
 		case "integer":
 			value = parseInt(value);

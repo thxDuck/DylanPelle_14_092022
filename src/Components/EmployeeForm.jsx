@@ -1,6 +1,6 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import Select from "react-select";
 import DatePicker from "react-datepicker";
@@ -10,9 +10,9 @@ import Label from "./Forms/Label.jsx";
 import data from "../data/data";
 import * as employeeActions from "../features/employee";
 import { getFormStructure, getOptionsForSelect } from "../services/formServices";
+
 const EmployeeForm = () => {
 	const dispatch = useDispatch();
-	const alphanumericRegexp = /[^a-z0-9]/gi;
 	const form = getFormStructure();
 
 	const { register, handleSubmit, control } = useForm({
@@ -24,9 +24,8 @@ const EmployeeForm = () => {
 		switch (type) {
 			case "text":
 				return {
-					// validate: (value) => value.replace(alphanumericRegexp, ""),
-					minLength: 2,
-					maxLength: 50,
+					// minLength: 2,
+					// maxLength: 100,
 					required: true,
 				};
 			case "date":
@@ -47,7 +46,6 @@ const EmployeeForm = () => {
 				};
 		}
 	};
-
 	const getInput = (key, label, type) => {
 		switch (type) {
 			case "text":
@@ -103,12 +101,8 @@ const EmployeeForm = () => {
 				break;
 		}
 	};
-
 	const onSubmit = (data) => {
-		console.log({ data });
-		// TODO : Dispatch event to set new employee !
-		// TODO : Set errors !
-		dispatch(employeeActions.setEmployee(data))
+		dispatch(employeeActions.setEmployee(data));
 	};
 
 	return (
