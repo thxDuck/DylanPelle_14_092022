@@ -1221,29 +1221,29 @@ const states = [
 ];
 const randomDate = () => {
 	const rdmDate = Math.floor(Math.random() * new Date().getTime());
-	return new Date(rdmDate).toLocaleString().slice(0, 10);
+	return new Date(rdmDate).getTime();
 };
 const rdmString = (array) => {
 	return array[Math.floor(Math.random() * array.length)];
 };
-export const getEmployees = (nb) => {
+export const createRandmonEmployees = (nb) => {
 	const employees = [];
 	for (let i = 0; i < nb; i++) {
-        const state = states[Math.floor(Math.random() * states.length)];
+		const state = states[Math.floor(Math.random() * states.length)];
 		const employee = {
 			firstName: rdmString(names),
 			lastName: rdmString(names),
-			dateOfBirth: randomDate(),
 			startDate: randomDate(),
-			department: rdmString(department),
+			department: { value: rdmString(department) },
 			street: rdmString(cities) + "-" + rdmString(cities),
 			city: rdmString(cities),
-			state: state.name,
-			abbreviation: state.abbreviation,
-			zipCode: "49520",
+			state: { value: state.name },
+			zipCode: Math.floor(Math.random() * 99999),
 		};
+		do {
+			employee.dateOfBirth = randomDate();
+		} while (employee.dateOfBirth > new Date().getTime() || employee.dateOfBirth > employee.startDate)
 		employees.push(employee);
 	}
-	// localStorage.setItem("employees", JSON.stringify(employees));
 	return employees;
 };

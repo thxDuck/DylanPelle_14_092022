@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+
 import DataTable from "react-data-table-component";
 import FilterComponent from "./FilterComponent.jsx";
-import { getEmployees } from "../utils/mock";
-import { getColumns } from "../services/formServices.js";
+import { selectAllEmployees } from "../utils/selectors";
 
-const employees = getEmployees(1000);
+import { getColumns, parseEmployees } from "../services/formServices.js";
 
 const Table = () => {
+	const employees = parseEmployees(useSelector(selectAllEmployees));
 	const [filterText, setFilterText] = useState("");
 	const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 

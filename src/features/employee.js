@@ -1,8 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import models from "../data/models";
 import data from "../data/data";
-// import { useSelector } from "react";
-// import { selectEmployee } from "../utils/selectors";
 import { checkValue } from "../services/formServices";
 
 const initialState = {
@@ -21,11 +18,18 @@ export const setEmployee = (raw_employee) => {
 				hasError = true;
 				dispatch(actions.setError({ ...error, property }));
 			} else {
+				// TODO : If changes
 				dispatch(actions.removeError(property));
 				employee[property] = checkedValue;
 			}
 		}
 		if (!hasError) dispatch(actions.addEmployee(employee));
+	};
+};
+
+export const clearEmployees = () => {
+	return (dispatch, getState) => {
+		dispatch(actions.clearEmployees());
 	};
 };
 
@@ -51,6 +55,12 @@ const employeeSlice = createSlice({
 			}),
 			reducer: (draft, action) => {
 				draft.employees.push(action.payload.employee);
+				return;
+			},
+		},
+		clearEmployees: {
+			reducer: (draft, action) => {
+				draft.employees = [];
 				return;
 			},
 		},

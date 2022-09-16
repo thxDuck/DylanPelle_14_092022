@@ -10,11 +10,22 @@ import Label from "./Forms/Label.jsx";
 import data from "../data/data";
 import * as employeeActions from "../features/employee";
 import { getFormStructure, getOptionsForSelect } from "../services/formServices";
+import { createRandmonEmployees } from "../utils/mock";
 
 const EmployeeForm = () => {
 	const dispatch = useDispatch();
 	const form = getFormStructure();
-
+	const getRandomEmployees = () => {
+		const employees = createRandmonEmployees(100);
+		employees.forEach((employee) => {
+			dispatch(employeeActions.setEmployee(employee));
+		});
+		alert("Employees created !");
+	};
+	const clearEmployees = () => {
+			dispatch(employeeActions.clearEmployees());
+		alert("Employees removed !");
+	};
 	const { register, handleSubmit, control } = useForm({
 		defaultValues: {
 			...data.employee,
@@ -24,8 +35,8 @@ const EmployeeForm = () => {
 		switch (type) {
 			case "text":
 				return {
-					// minLength: 2,
-					// maxLength: 100,
+					minLength: 2,
+					maxLength: 100,
 					required: true,
 				};
 			case "date":
@@ -147,6 +158,9 @@ const EmployeeForm = () => {
 			<Label id="submit" label="">
 				<input id="submit" name="submit" value="Save" type="submit" />
 			</Label>
+
+			<button type="button" onClick={() => getRandomEmployees()}>Create 100 random employee</button>
+			<button type="button" onClick={() => clearEmployees()}>Clear employee list</button>
 		</form>
 	);
 };

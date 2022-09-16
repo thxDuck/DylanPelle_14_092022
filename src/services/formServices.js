@@ -3,13 +3,25 @@ import models from "../data/models.js";
 import ERROR from "./errors.js";
 const alphanumericRegexp = /[^a-z0-9] /gi;
 
+export const parseEmployees = (employees) => {
+	return employees.map((raw_data) => {
+		const employee = { ...raw_data };
+		employee.startDate = new Date(employee.startDate).toLocaleString().slice(0, 10);
+		employee.dateOfBirth = new Date(employee.dateOfBirth).toLocaleString().slice(0, 10);
+		employee.department = employee.department.name;
+		employee.abbreviation = employee.state.abbreviation;
+		employee.state = employee.state.name;
+		return employee;
+	});
+};
+
 const checkSelect = (value, property) => {
 	if (!value) return { error: ERROR.FORM.REQUIRED };
 	const options = data.options;
 	const selectedOption = options[property].find(
 		(date) => date.name.toLowerCase() === value.toLowerCase()
-		);
-	return !!selectedOption ? { checkedValue: selectedOption } :  { error: ERROR.FORM.REQUIRED };
+	);
+	return !!selectedOption ? { checkedValue: selectedOption } : { error: ERROR.FORM.REQUIRED };
 };
 
 export const checkDateCoherence = (date, property, employee) => {
