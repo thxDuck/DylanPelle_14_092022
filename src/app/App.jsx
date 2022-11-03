@@ -1,10 +1,12 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { persistor, store } from "../utils/store";
+import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "../utils/store";
+import "./App.scss"
+
 import RoutesApp from "./Routes.jsx";
-import Loader from "./Loader.jsx";
+import Loader from "../Components/Loader/Loader.jsx";
 
 const App = () => {
 	return (

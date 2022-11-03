@@ -1,0 +1,19 @@
+@import "./resetCss.scss";
+
+:root {
+	--primary: #93ad18;
+	--primary-dark: #005249;
+	--secondary: #6b733f;
+	--gray: #eee;
+	--radius: 5px;
+	background-color: var(--gray);
+	font-family: 'Roboto', sans-serif;
+}
+
+main {
+	background-color: #fff;
+	border-radius: 50px 50px 0 0;
+	padding: 10% 1rem;
+}
+
+

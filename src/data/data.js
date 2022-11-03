@@ -259,8 +259,8 @@ const data = {
 	employee: {
 		firstName: "",
 		lastName: "",
-		dateOfBirth: "",
-		startDate: "",
+		dateOfBirth: new Date(),
+		startDate: new Date(),
 		street: "",
 		city: "",
 		state: "",

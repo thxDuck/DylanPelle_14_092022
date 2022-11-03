@@ -59,11 +59,7 @@ export const checkValue = (employee, property, value) => {
 };
 
 export const getFormStructure = () => {
-	return {
-		informations: models.personnalInformations,
-		address: models.address,
-		department: models.buisnessInformations,
-	};
+	return models.employee
 };
 
 export const getColumns = () => {

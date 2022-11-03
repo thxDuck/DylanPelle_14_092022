@@ -8,7 +8,7 @@ const Label = (props) => {
 	const error =  useSelector(selectErrors)[id];
 
 	return (
-		<div className="input-group">
+		<div className="input-grp">
 			<label htmlFor={id}>{label}</label>
 			{children}
 			{!!error ? <ErrorToolTip msg={error} /> : ""}

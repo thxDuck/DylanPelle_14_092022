@@ -1,14 +1,70 @@
 const models = {
-	personnalInformations: [
+	employee: [
 		{
 			key: "firstName",
 			name: "First Name",
-			type: "text",
+			type: "string",
+			category: "Personnal Informations",
 		},
 		{
 			key: "lastName",
 			name: "Last Name",
-			type: "text",
+			type: "string",
+			category: "Personnal Informations",
+		},
+		{
+			key: "dateOfBirth",
+			name: "Date of Birth",
+			type: "date",
+			category: "Personnal Informations",
+		},
+		{
+			key: "startDate",
+			name: "Start Date",
+			type: "date",
+			category: "Personnal Informations",
+		},
+		{
+			key: "department",
+			name: "Department",
+			type: "select",
+			category: "Personnal Informations",
+		},
+		{
+			key: "street",
+			name: "Street",
+			type: "string",
+			category: "Address",
+		},
+		{
+			key: "city",
+			name: "City",
+			type: "string",
+			category: "Address",
+		},
+		{
+			key: "state",
+			name: "State",
+			type: "select",
+			category: "Address",
+		},
+		{
+			key: "zipCode",
+			name: "Zip Code",
+			type: "number",
+			category: "Address",
+		},
+	],
+	personnalInformations: [
+		{
+			key: "firstName",
+			name: "First Name",
+			type: "string",
+		},
+		{
+			key: "lastName",
+			name: "Last Name",
+			type: "string",
 		},
 		{
 			key: "dateOfBirth",
@@ -25,12 +81,12 @@ const models = {
 		{
 			key: "street",
 			name: "Street",
-			type: "text",
+			type: "string",
 		},
 		{
 			key: "city",
 			name: "City",
-			type: "text",
+			type: "string",
 		},
 		{
 			key: "state",

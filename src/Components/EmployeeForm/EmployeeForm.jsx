@@ -2,19 +2,20 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
-import Select from "react-select";
+import Select, { StylesConfig } from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import Label from "./Forms/Label.jsx";
-import data from "../data/data";
-import * as employeeActions from "../features/employee";
-import { getFormStructure, getOptionsForSelect } from "../services/formServices";
-import { createRandmonEmployees } from "../utils/mock";
+import "./EmployeeForm.scss";
+import Label from "../Forms/Label.jsx";
+import * as employeeActions from "../../features/employee";
+import { getFormStructure, getOptionsForSelect } from "../../services/formServices";
+import { createRandmonEmployees } from "../../utils/mock";
 
-const EmployeeForm = () => {
+const EmployeeForm = (props) => {
+	const employee = props.employee;
 	const dispatch = useDispatch();
-	const form = getFormStructure();
+	const formStructure = getFormStructure();
 	const getRandomEmployees = () => {
 		const employees = createRandmonEmployees(100);
 		employees.forEach((employee) => {
@@ -23,14 +24,50 @@ const EmployeeForm = () => {
 		alert("Employees created !");
 	};
 	const clearEmployees = () => {
-			dispatch(employeeActions.clearEmployees());
+		dispatch(employeeActions.clearEmployees());
 		alert("Employees removed !");
 	};
 	const { register, handleSubmit, control } = useForm({
 		defaultValues: {
-			...data.employee,
+			...employee,
 		},
 	});
+
+	const selectStyle = {
+		control: (styles) => ({
+			...styles,
+			backgroundColor: "white",
+			borderColor: "#005249",
+			boxShadow: "unset",
+			":active": {
+				borderColor: "#93ad18",
+				boxShadow: "0 0 0 1px #93ad18",
+			},
+			":hover": {
+				borderColor: "#93ad18",
+				boxShadow: "0 0 0 1px #93ad18",
+			},
+			":focus": {
+				borderColor: "#93ad18",
+				boxShadow: "0 0 0 1px #93ad18",
+			},
+		}),
+		option: (styles, { isFocused, isSelected }) => {
+			return {
+				...styles,
+				backgroundColor: isSelected ? "#93ad18" : undefined,
+				":active": {
+					backgroundColor: "#93ad18",
+				},
+				":hover": {
+					color: "black",
+					backgroundColor: "#f0f4cd",
+				},
+			};
+		},
+		input: (styles) => ({ ...styles, color: "#005249" }),
+	};
+
 	const registerOptions = (type) => {
 		switch (type) {
 			case "text":
@@ -57,9 +94,9 @@ const EmployeeForm = () => {
 				};
 		}
 	};
-	const getInput = (key, label, type) => {
+	const getInput = (key, type, label = "") => {
 		switch (type) {
-			case "text":
+			case "string":
 				return (
 					<input
 						id={key}
@@ -84,9 +121,14 @@ const EmployeeForm = () => {
 						name={key}
 						render={({ field }) => (
 							<DatePicker
-								placeholderText="01/01/2000"
+								calendarClassName="datePicker"
 								onChange={(e) => field.onChange(e)}
 								selected={field.value}
+								closeOnScroll={true}
+								locale="fr-FR"
+								dateFormat="dd/MM/yyyy"
+								placeholderText="01/01/2000"
+								showYearDropdown
 							/>
 						)}
 					/>
@@ -103,6 +145,7 @@ const EmployeeForm = () => {
 								menuPlacement="top"
 								onChange={(e) => field.onChange(e)}
 								selected={field.value}
+								styles={selectStyle}
 							/>
 						)}
 					/>
@@ -118,49 +161,22 @@ const EmployeeForm = () => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			{form.informations.map((info) => {
-				const { key, name, type } = info;
+			{formStructure.map((info, index) => {
 				return (
-					<Label id={key} label={name} key={key}>
-						{getInput(key, name, type)}
+					<Label id={info.key} label={info.name} key={index}>
+						{getInput(info.key, info.type, info.name)}
 					</Label>
 				);
 			})}
 
-			<fieldset>
-				<legend>Address</legend>
-				{form.address.map((info) => {
-					const { key, name, type } = info;
-					return (
-						<Label id={key} label={name} key={key}>
-							{getInput(key, name, type)}
-						</Label>
-					);
-				})}
-			</fieldset>
+			<button type="submit">Save</button>
 
-			<Label id="department" label="Department">
-				<Controller
-					control={control}
-					name={form.department.key}
-					render={({ field }) => (
-						<Select
-							placeholderText={form.department.name}
-							options={getOptionsForSelect(form.department.key)}
-							menuPlacement="top"
-							onChange={(e) => field.onChange(e)}
-							selected={field.value}
-						/>
-					)}
-				/>
-			</Label>
-
-			<Label id="submit" label="">
-				<input id="submit" name="submit" value="Save" type="submit" />
-			</Label>
-
-			<button type="button" onClick={() => getRandomEmployees()}>Create 100 random employee</button>
-			<button type="button" onClick={() => clearEmployees()}>Clear employee list</button>
+			<button type="button" onClick={() => getRandomEmployees()}>
+				Create 100 random employee
+			</button>
+			<button type="button" onClick={() => clearEmployees()}>
+				Clear employee list
+			</button>
 		</form>
 	);
 };

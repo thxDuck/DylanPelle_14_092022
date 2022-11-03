@@ -1,0 +1,45 @@
+nav {
+	ul {
+		display: flex;
+		justify-content: space-between;
+		li {
+			width: 45%;
+			text-align: center;
+			padding: 0.75rem;
+			cursor: pointer;
+			a {
+				color: var(--primary-dark);
+				text-decoration: none;
+				font-weight: 500;
+				transition: all 0.3s ease-in-out;
+			}
+
+			&:hover a {
+				color: #000;
+			}
+			&:hover .nav-tick {
+				box-shadow: 0px 0px 3px 1px #93ad18;
+			}
+
+			.nav-tick {
+				display: flex;
+				height: 7px;
+				width: 50%;
+
+				margin: auto;
+				margin-top: 1rem;
+				background-color: var(--gray);
+				border-radius: 20px;
+				border: 1px solid var(--secondary);
+				transition: all 0.3s ease-in-out;
+			}
+			&.active .nav-tick {
+				background-color: var(--primary);
+			}
+		}
+		.vertical-separator {
+			background-color: #8a8a8a;
+			width: 1px;
+		}
+	}
+}
