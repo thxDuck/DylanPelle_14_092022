@@ -1,0 +1,23 @@
+header ~ div {
+	border-radius: unset !important;
+}
+.rdt_Table {
+	.rdt_TableHeadRow {
+		background-color: var(--secondary);
+		font-size: 0.9rem;
+		.rdt_TableCol_Sortable {
+			display: flex;
+			flex-direction: column;
+            justify-content: center;
+		}
+	}
+	.rdt_TableBody {
+		& > * {
+			transition: all 0.1s;
+			background-color: var(--gray);
+			&:hover {
+				background-color: var(--primary);
+			}
+		}
+	}
+}

@@ -18,7 +18,6 @@ export const setEmployee = (raw_employee) => {
 				hasError = true;
 				dispatch(actions.setError({ ...error, property }));
 			} else {
-				// TODO : If changes
 				dispatch(actions.removeError(property));
 				employee[property] = checkedValue;
 			}

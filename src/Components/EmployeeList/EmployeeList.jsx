@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import DataTable from "react-data-table-component";
-import FilterComponent from "../FilterComponent.jsx";
+import FilterComponent from "../Forms/FilterComponent.jsx";
+import "./EmployeeList.scss";
 import { selectAllEmployees } from "../../utils/selectors";
 
 import { getColumns, parseEmployees } from "../../services/formServices.js";
 
-const Table = () => {
+const EmployeeList = () => {
 	const employees = parseEmployees(useSelector(selectAllEmployees));
-	const [filterText, setFilterText] = useState("");
 	const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+	const [filterText, setFilterText] = useState("");
 
 	const columns = getColumns();
 	const filteredItems = employees.filter(
@@ -26,38 +27,34 @@ const Table = () => {
 			(item.state && item.state.toLowerCase().includes(filterText.toLowerCase())) ||
 			(item.abbreviation &&
 				item.abbreviation.toLowerCase().includes(filterText.toLowerCase())) ||
-			(item.zipCode && item.zipCode.toLowerCase().includes(filterText.toLowerCase()))
+			(item.zipCode &&
+				item.zipCode.toString().toLowerCase().includes(filterText.toLowerCase()))
 	);
 
 	const subHeaderComponentMemo = React.useMemo(() => {
-		const handleClear = () => {
-			if (filterText) {
-				setResetPaginationToggle(!resetPaginationToggle);
-				setFilterText("");
-			}
-		};
-
 		return (
 			<FilterComponent
 				onFilter={(e) => setFilterText(e.target.value)}
-				onClear={handleClear}
+				placeholder="Coucou"
 				filterText={filterText}
 			/>
 		);
-	}, [filterText, resetPaginationToggle]);
+	}, [filterText]);
 
 	return (
 		<DataTable
 			columns={columns}
 			data={filteredItems}
 			pagination
-			paginationResetDefaultPage={resetPaginationToggle} // optionally, a hook to reset pagination to page 1
+			paginationResetDefaultPage={resetPaginationToggle}
 			subHeader
 			subHeaderComponent={subHeaderComponentMemo}
-			selectableRows
-			// persistTableHead
+			theme="solarized"
+			fixedHeader
+			responsive={true}
+			selectableRows={false}
 		/>
 	);
 };
 
-export default Table;
+export default EmployeeList;

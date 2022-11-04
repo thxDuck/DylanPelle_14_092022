@@ -49,6 +49,7 @@ export const checkValue = (employee, property, value) => {
 		case "integer":
 			value = parseInt(value);
 			if (isNaN(value)) return { error: ERROR.INTEGER.IS_NAN };
+			if (value.toString().length !== 5) return { error: ERROR.INTEGER.NEED_5 };
 			else if (value <= 0) return { error: ERROR.INTEGER.NEGATIVE };
 			return { checkedValue: value };
 		case "date":
@@ -63,11 +64,7 @@ export const getFormStructure = () => {
 };
 
 export const getColumns = () => {
-	const columns = [
-		...models.personnalInformations,
-		...models.address,
-		models.buisnessInformations,
-	];
+	const columns = models.employee
 	columns.forEach((c) => {
 		c.selector = (row) => row[c.key];
 	});

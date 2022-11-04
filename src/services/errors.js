@@ -14,6 +14,10 @@ const ERROR = {
 			code: "02xc002",
 			msg: "Select a positive number !",
 		},
+		NEED_5: {
+			code: "02xc003",
+			msg: "Select a valid zip code (5 digits) !",
+		},
 	},
 	DATES: {
 		NOT_VALID: {
