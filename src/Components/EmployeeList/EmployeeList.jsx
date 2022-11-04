@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import DataTable from "react-data-table-component";
-import FilterComponent from "./FilterComponent.jsx";
-import { selectAllEmployees } from "../utils/selectors";
+import FilterComponent from "../FilterComponent.jsx";
+import { selectAllEmployees } from "../../utils/selectors";
 
-import { getColumns, parseEmployees } from "../services/formServices.js";
+import { getColumns, parseEmployees } from "../../services/formServices.js";
 
 const Table = () => {
 	const employees = parseEmployees(useSelector(selectAllEmployees));

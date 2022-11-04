@@ -2,7 +2,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
-import Select, { StylesConfig } from "react-select";
+import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -161,15 +161,30 @@ const EmployeeForm = (props) => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			{formStructure.map((info, index) => {
-				return (
-					<Label id={info.key} label={info.name} key={index}>
-						{getInput(info.key, info.type, info.name)}
-					</Label>
-				);
-			})}
+			<div className="form-grp personnalInfos">
+				{formStructure["Personnal Informations"].map((info, index) => {
+					return (
+						<Label id={info.key} label={info.name} key={index}>
+							{getInput(info.key, info.type, info.name)}
+						</Label>
+					);
+				})}
+			</div>
+			<div className="form-grp address">
+				{formStructure["Address"].map((info, index) => {
+					return (
+						<Label id={info.key} label={info.name} key={index}>
+							{getInput(info.key, info.type, info.name)}
+						</Label>
+					);
+				})}
+			</div>
 
-			<button type="submit">Save</button>
+			<button className="btn btn-submit" type="submit">
+				Save
+			</button>
+			{/* 
+			TODO : Display buttons in modal
 
 			<button type="button" onClick={() => getRandomEmployees()}>
 				Create 100 random employee
@@ -177,6 +192,8 @@ const EmployeeForm = (props) => {
 			<button type="button" onClick={() => clearEmployees()}>
 				Clear employee list
 			</button>
+			
+			*/}
 		</form>
 	);
 };

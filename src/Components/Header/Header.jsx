@@ -2,9 +2,7 @@ import React from "react";
 import Nav from "../Nav/Nav";
 import "./Header.scss";
 
-const Header = (props) => {
-	const active = props.active;
-
+const Header = () => {
 	return (
 		<header>
 			<span className="title">
@@ -12,7 +10,7 @@ const Header = (props) => {
 				<h2>- HR net</h2>
 			</span>
 
-			<Nav active={active} />
+			<Nav />
 		</header>
 	);
 };

@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 import "./Nav.scss";
 
-const Nav = (props) => {
-	const active = props.active;
-
-	console.log({ active });
+const Nav = () => {
 	return (
 		<nav>
 			<ul>
-				<li className={active === "add" ? "active" : ""}>
-					<Link to="/">
+				<li>
+					<NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/">
 						Create employee
 						<span className="nav-tick"></span>
-					</Link>
+					</NavLink>
 				</li>
 				<span className="vertical-separator"></span>
-				<li className={active === "list" ? "active" : ""}>
-					<Link to="/list">
+				<li>
+					<NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/list">
 						All employees
 						<span className="nav-tick"></span>
-					</Link>
+					</NavLink>
 				</li>
 			</ul>
 		</nav>

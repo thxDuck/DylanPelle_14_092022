@@ -33,7 +33,7 @@ nav {
 				border: 1px solid var(--secondary);
 				transition: all 0.3s ease-in-out;
 			}
-			&.active .nav-tick {
+			.active .nav-tick {
 				background-color: var(--primary);
 			}
 		}

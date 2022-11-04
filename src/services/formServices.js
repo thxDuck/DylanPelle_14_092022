@@ -59,7 +59,7 @@ export const checkValue = (employee, property, value) => {
 };
 
 export const getFormStructure = () => {
-	return models.employee
+	return models.employeeByCat
 };
 
 export const getColumns = () => {
