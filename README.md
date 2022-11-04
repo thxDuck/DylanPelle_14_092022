@@ -10,3 +10,6 @@
 - Refaire l'app sans les pages
 - rebuild thx-modal comme OP
 - LightHouse
+
+- Check les erreurs
+- faire la modale

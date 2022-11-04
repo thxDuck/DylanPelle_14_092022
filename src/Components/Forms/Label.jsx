@@ -1,11 +1,13 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useContext } from "react";
+// import { useSelector } from "react-redux";
 import ErrorToolTip from "./ErrorToolTip.jsx";
-import { selectErrors } from "../../utils/selectors";
+
+import { ErrorContext } from "../../utils/context";
 
 const Label = (props) => {
 	const { id, label, children } = props;
-	const error =  useSelector(selectErrors)[id];
+	const { errors } = useContext(ErrorContext);
+	const error = errors[id];
 
 	return (
 		<div className="input-grp">

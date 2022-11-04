@@ -2,6 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { persistor, store } from "../utils/store";
+import { ErrorProvider } from "../utils/context.jsx";
 import { PersistGate } from "redux-persist/integration/react";
 
 import "./App.scss";
@@ -13,12 +14,14 @@ const App = () => {
 	return (
 		<Provider store={store}>
 			<PersistGate loading={<Loader />} persistor={persistor}>
-				<BrowserRouter>
-					<Header />
-					<main>
-						<RoutesApp />
-					</main>
-				</BrowserRouter>
+				<ErrorProvider>
+					<BrowserRouter>
+						<Header />
+						<main>
+							<RoutesApp />
+						</main>
+					</BrowserRouter>
+				</ErrorProvider>
 			</PersistGate>
 		</Provider>
 	);

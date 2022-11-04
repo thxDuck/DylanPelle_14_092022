@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
@@ -11,9 +11,11 @@ import Label from "../Forms/Label.jsx";
 import * as employeeActions from "../../features/employee";
 import { getFormStructure, getOptionsForSelect } from "../../services/formServices";
 import { createRandmonEmployees } from "../../utils/mock";
+import { ErrorContext } from "../../utils/context";
 
 const EmployeeForm = (props) => {
 	const employee = props.employee;
+	const { setError } = useContext(ErrorContext);
 	const dispatch = useDispatch();
 	const formStructure = getFormStructure();
 	const getRandomEmployees = () => {
@@ -156,7 +158,10 @@ const EmployeeForm = (props) => {
 		}
 	};
 	const onSubmit = (data) => {
-		dispatch(employeeActions.setEmployee(data));
+		const errors = dispatch(employeeActions.setEmployee(data));
+		if (!!errors.length) {
+			errors.forEach((e) => setError(e.property, e.msg));
+		}
 	};
 
 	return (

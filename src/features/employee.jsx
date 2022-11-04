@@ -11,18 +11,21 @@ export const setEmployee = (raw_employee) => {
 	return (dispatch, getState) => {
 		let hasError = false;
 		const employee = { ...data.employee };
+		const errors = [];
 		for (const property in raw_employee) {
 			const raw_value = raw_employee[property];
 			const { checkedValue, error } = checkValue(raw_employee, property, raw_value);
 			if (!!error) {
 				hasError = true;
-				dispatch(actions.setError({ ...error, property }));
+				console.log("HAS ERROR");
+				errors.push({ ...error, property });
 			} else {
 				dispatch(actions.removeError(property));
 				employee[property] = checkedValue;
 			}
 		}
 		if (!hasError) dispatch(actions.addEmployee(employee));
+		else return errors
 	};
 };
 
