@@ -6,3 +6,7 @@
 
 # TODO : 
     Color palete : https://mycolor.space/?hex=%2393AD18&sub=1
+- Faire un menu pour les éléments create random et clear
+- Refaire l'app sans les pages
+- rebuild thx-modal comme OP
+- LightHouse

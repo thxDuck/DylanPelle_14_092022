@@ -3,17 +3,19 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "../utils/store";
-import "./App.scss"
+import "./App.scss";
 
 import RoutesApp from "./Routes.jsx";
 import Loader from "../Components/Loader/Loader.jsx";
+// import Header from "../Components/Header/Header.jsx";
 
 const App = () => {
 	return (
 		<Provider store={store}>
 			<PersistGate loading={<Loader />} persistor={persistor}>
 				<BrowserRouter>
-					<RoutesApp />
+						{/* <Header /> */}
+						<RoutesApp />
 				</BrowserRouter>
 			</PersistGate>
 		</Provider>
