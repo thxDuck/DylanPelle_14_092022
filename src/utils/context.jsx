@@ -16,7 +16,8 @@ export const ErrorContext = createContext();
 export const ErrorProvider = ({ children }) => {
 	const [errors, setNewError] = useState(employeeProperties);
 	const setError = (id, msg = null) => {
-		setNewError({ ...errors, [id]: msg });
+		if (id === false) setNewError(employeeProperties);
+		else setNewError({ ...errors, [id]: msg });
 	};
 
 	return <ErrorContext.Provider value={{ errors, setError }}>{children}</ErrorContext.Provider>;

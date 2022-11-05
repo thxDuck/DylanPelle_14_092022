@@ -60,11 +60,11 @@ export const checkValue = (employee, property, value) => {
 };
 
 export const getFormStructure = () => {
-	return models.employeeByCat
+	return models.employeeByCat;
 };
 
 export const getColumns = () => {
-	const columns = models.employee
+	const columns = models.employee;
 	columns.forEach((c) => {
 		c.selector = (row) => row[c.key];
 	});

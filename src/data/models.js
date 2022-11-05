@@ -61,13 +61,11 @@ const models = {
 				key: "firstName",
 				name: "First Name",
 				type: "string",
-				category: "Personnal Informations",
 			},
 			{
 				key: "lastName",
 				name: "Last Name",
 				type: "string",
-				category: "Personnal Informations",
 			},
 			{
 				key: "dateOfBirth",
@@ -83,6 +81,7 @@ const models = {
 				key: "department",
 				name: "Department",
 				type: "select",
+				value: "",
 			},
 		],
 		Address: [
@@ -90,21 +89,25 @@ const models = {
 				key: "street",
 				name: "Street",
 				type: "string",
+				value: "",
 			},
 			{
 				key: "city",
 				name: "City",
 				type: "string",
+				value: "",
 			},
 			{
 				key: "state",
 				name: "State",
 				type: "select",
+				value: "",
 			},
 			{
 				key: "zipCode",
 				name: "Zip Code",
 				type: "number",
+				value: "",
 			},
 		],
 	},

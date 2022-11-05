@@ -9,23 +9,23 @@ const initialState = {
 
 export const setEmployee = (raw_employee) => {
 	return (dispatch, getState) => {
-		let hasError = false;
+		let success = true;
 		const employee = { ...data.employee };
 		const errors = [];
 		for (const property in raw_employee) {
 			const raw_value = raw_employee[property];
 			const { checkedValue, error } = checkValue(raw_employee, property, raw_value);
 			if (!!error) {
-				hasError = true;
-				console.log("HAS ERROR");
+				success = false;
 				errors.push({ ...error, property });
 			} else {
 				dispatch(actions.removeError(property));
 				employee[property] = checkedValue;
+				errors.push({ property, msg: null });
 			}
 		}
-		if (!hasError) dispatch(actions.addEmployee(employee));
-		else return errors
+		if (success) dispatch(actions.addEmployee(employee));
+		return { success, errors };
 	};
 };
 

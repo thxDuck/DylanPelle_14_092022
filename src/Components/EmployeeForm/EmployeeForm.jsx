@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-
+import Modal, { useModal } from "thx-modal";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,10 +13,10 @@ import { getFormStructure, getOptionsForSelect } from "../../services/formServic
 import { createRandmonEmployees } from "../../utils/mock";
 import { ErrorContext } from "../../utils/context";
 
-const EmployeeForm = (props) => {
-	const employee = props.employee;
+const EmployeeForm = () => {
 	const { setError } = useContext(ErrorContext);
 	const dispatch = useDispatch();
+	const { openedModals, toggleModal } = useModal();
 	const formStructure = getFormStructure();
 	const getRandomEmployees = () => {
 		const employees = createRandmonEmployees(100);
@@ -29,12 +29,32 @@ const EmployeeForm = (props) => {
 		dispatch(employeeActions.clearEmployees());
 		alert("Employees removed !");
 	};
-	const { register, handleSubmit, control } = useForm({
-		defaultValues: {
-			...employee,
-		},
-	});
 
+	const defaultValues = {
+		firstName: "Coucou",
+		lastName: "qzdqzd",
+		dateOfBirth: new Date().setFullYear(new Date().getFullYear() - 18),
+		startDate: new Date(),
+		department: "",
+		street: "qzdqzd",
+		city: "qzdqzd",
+		state: "",
+		zipCode: 49520,
+	};
+
+	const {
+		register,
+		handleSubmit,
+		control,
+		reset,
+		formState,
+		formState: { isSubmitSuccessful },
+	} = useForm({ defaultValues });
+	useEffect(() => {
+		if (formState.isSubmitSuccessful) {
+			reset(defaultValues);
+		}
+	}, [formState, isSubmitSuccessful, reset]);
 	const selectStyle = {
 		control: (styles) => ({
 			...styles,
@@ -96,7 +116,7 @@ const EmployeeForm = (props) => {
 				};
 		}
 	};
-	const getInput = (key, type, label = "") => {
+	const getInput = (key, type, label = "", value) => {
 		switch (type) {
 			case "string":
 				return (
@@ -117,6 +137,12 @@ const EmployeeForm = (props) => {
 					/>
 				);
 			case "date":
+				let maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 2));
+				let maxYearItems = 10;
+				if (key === "dateOfBirth") {
+					maxYearItems = 50;
+					maxDate = new Date();
+				}
 				return (
 					<Controller
 						control={control}
@@ -125,12 +151,12 @@ const EmployeeForm = (props) => {
 							<DatePicker
 								calendarClassName="datePicker"
 								onChange={(e) => field.onChange(e)}
-								selected={field.value}
-								closeOnScroll={true}
-								locale="fr-FR"
-								dateFormat="dd/MM/yyyy"
 								placeholderText="01/01/2000"
+								selected={field.value}
+								maxDate={maxDate}
 								showYearDropdown
+								yearDropdownItemNumber={maxYearItems}
+								scrollableYearDropdown
 							/>
 						)}
 					/>
@@ -158,48 +184,52 @@ const EmployeeForm = (props) => {
 		}
 	};
 	const onSubmit = (data) => {
-		const errors = dispatch(employeeActions.setEmployee(data));
-		if (!!errors.length) {
-			errors.forEach((e) => setError(e.property, e.msg));
-		}
+		console.log({ data });
+		setError(false);
+		const { success, errors } = dispatch(employeeActions.setEmployee(data));
+		errors.forEach((e) => setError(e.property, e.msg));
+		if (success) toggleModal("modal-success");
 	};
-
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<div className="form-grp personnalInfos">
-				{formStructure["Personnal Informations"].map((info, index) => {
-					return (
-						<Label id={info.key} label={info.name} key={index}>
-							{getInput(info.key, info.type, info.name)}
-						</Label>
-					);
-				})}
-			</div>
-			<div className="form-grp address">
-				{formStructure["Address"].map((info, index) => {
-					return (
-						<Label id={info.key} label={info.name} key={index}>
-							{getInput(info.key, info.type, info.name)}
-						</Label>
-					);
-				})}
-			</div>
+		<>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<div className="form-grp personnalInfos">
+					{formStructure["Personnal Informations"].map((info, index) => {
+						return (
+							<Label id={info.key} label={info.name} key={index}>
+								{getInput(info.key, info.type, info.name, info.value)}
+							</Label>
+						);
+					})}
+				</div>
+				<div className="form-grp address">
+					{formStructure["Address"].map((info, index) => {
+						return (
+							<Label id={info.key} label={info.name} key={index}>
+								{getInput(info.key, info.type, info.name, info.value)}
+							</Label>
+						);
+					})}
+				</div>
 
-			<button className="btn btn-submit" type="submit">
-				Save
-			</button>
+				<button className="btn btn-submit" type="submit">
+					Save
+				</button>
+			</form>
 			{/* 
-			TODO : Display buttons in modal
-
-			<button type="button" onClick={() => getRandomEmployees()}>
-				Create 100 random employee
-			</button>
-			<button type="button" onClick={() => clearEmployees()}>
-				Clear employee list
-			</button>
-			
+			TODO :
+			- Display modal with style :cool:
+			- Add buttons to show modal with buttons ! :O
 			*/}
-		</form>
+
+			<Modal
+				id={"modal-success"}
+				isOpen={openedModals["modal-success"]}
+				onClose={() => toggleModal("modal-success")}
+				title="Success"
+				content="Employee created !"
+			/>
+		</>
 	);
 };
 
