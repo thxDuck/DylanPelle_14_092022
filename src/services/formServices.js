@@ -1,6 +1,7 @@
 import data from "../data/data.js";
 import models from "../data/models.js";
 import ERROR from "./errors.js";
+
 const alphanumericRegexp = /[^a-z0-9] /gi;
 
 export const parseEmployees = (employees) => {
@@ -36,6 +37,24 @@ export const checkDateCoherence = (date, property, employee) => {
 	if (new Date(birth).getTime() >= new Date(start).getTime())
 		return { error: ERROR.DATES.COHERENCE };
 	return { checkedValue: date };
+};
+
+export const registerEmployee = (raw_employee) => {
+	const employee = {};
+	let success = true;
+	const errors = {}
+	for (const property in raw_employee) {
+		const raw_value = raw_employee[property];
+		const { checkedValue, error } = checkValue(raw_employee, property, raw_value);
+		if (!!error) {
+			success = false;
+			errors[property] = error.msg
+		} else {
+			employee[property] = checkedValue;
+		}
+	}
+
+	return { success, errors: errors, employee };
 };
 export const checkValue = (employee, property, value) => {
 	const dataModel = models.data[property];

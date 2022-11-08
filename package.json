@@ -20,7 +20,7 @@
 		"redux-persist": "^6.0.0",
 		"sass": "^1.54.8",
 		"styled-components": "^5.3.5",
-		"thx-modal": "^0.1.2",
+		"thx-modal": "^0.1.3",
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {

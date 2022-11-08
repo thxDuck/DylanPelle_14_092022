@@ -1,31 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import data from "../data/data";
-import { checkValue } from "../services/formServices";
 
 const initialState = {
 	employees: [],
 	errors: {},
 };
 
-export const setEmployee = (raw_employee) => {
+export const setEmployee = (employee) => {
 	return (dispatch, getState) => {
-		let success = true;
-		const employee = { ...data.employee };
-		const errors = [];
-		for (const property in raw_employee) {
-			const raw_value = raw_employee[property];
-			const { checkedValue, error } = checkValue(raw_employee, property, raw_value);
-			if (!!error) {
-				success = false;
-				errors.push({ ...error, property });
-			} else {
-				dispatch(actions.removeError(property));
-				employee[property] = checkedValue;
-				errors.push({ property, msg: null });
-			}
-		}
-		if (success) dispatch(actions.addEmployee(employee));
-		return { success, errors };
+		dispatch(actions.addEmployee(employee));
 	};
 };
 

@@ -2,7 +2,7 @@ const ERROR = {
 	STRING: {
 		LENGTH: {
 			code: "01xc001",
-			msg: "This field must contain at least 2 characters and a maximum of 100 characters",
+			msg: "This field should contain between 2 and 100 characters",
 		}
 	},
 	INTEGER: {

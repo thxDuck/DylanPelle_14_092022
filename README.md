@@ -12,3 +12,9 @@
 
 - Check les erreurs
 - faire la modale
+
+
+Reste a finir => 
+- Clean les fichiers, surtout employee form
+- Trouver le reset de react-select
+-modale si pk quit exit ça toggle avec le menu? :/
