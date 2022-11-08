@@ -14,6 +14,23 @@ body {
 	justify-content: center;
 	align-items: center;
 }
+
+#modals	{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+@mixin btn {
+	font-family: "Roboto", sans-serif;
+	font-weight: 400;
+	background: #93ad18;
+	border-radius: 11px;
+	padding: 0.8rem 1rem;
+	color: black;
+	display: inline-block;
+	text-align: center;
+  }
+
 #root {
 	max-width: 1140px;
 	display: flex;

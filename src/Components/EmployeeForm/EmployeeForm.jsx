@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import Modal, { useModal } from "thx-modal";
+import Modal, { useModal } from "./Modal";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,6 +13,7 @@ import { getFormStructure, getOptionsForSelect } from "../../services/formServic
 import { createRandmonEmployees } from "../../utils/mock";
 import { ErrorContext } from "../../utils/context";
 
+let render = 0;
 const EmployeeForm = () => {
 	const { setError } = useContext(ErrorContext);
 	const dispatch = useDispatch();
@@ -54,6 +55,9 @@ const EmployeeForm = () => {
 		if (formState.isSubmitSuccessful) {
 			reset(defaultValues);
 		}
+		if (!render) toggleModal("modal-success");
+		console.log({ init: render });
+		render++;
 	}, [formState, isSubmitSuccessful, reset]);
 	const selectStyle = {
 		control: (styles) => ({
@@ -190,6 +194,7 @@ const EmployeeForm = () => {
 		errors.forEach((e) => setError(e.property, e.msg));
 		if (success) toggleModal("modal-success");
 	};
+
 	return (
 		<>
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -227,7 +232,12 @@ const EmployeeForm = () => {
 				isOpen={openedModals["modal-success"]}
 				onClose={() => toggleModal("modal-success")}
 				title="Success"
+				// theme={"#6b733f"}
+				backgroundStyle={false}
+				closeText="x"
 				content="Employee created !"
+				contentStyle={{ padding: "2rem 0" }}
+				modalStyle={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
 			/>
 		</>
 	);
