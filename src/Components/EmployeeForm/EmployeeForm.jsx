@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -8,27 +9,31 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import "./EmployeeForm.scss";
 import Label from "../Forms/Label.jsx";
+import FormMenu from "../FormMenu/FormMenu.jsx";
 import * as employeeActions from "../../features/employee";
 import { getFormStructure, getOptionsForSelect } from "../../services/formServices";
 import { createRandmonEmployees } from "../../utils/mock";
 import { ErrorContext } from "../../utils/context";
 
-let render = 0;
 const EmployeeForm = () => {
 	const { setError } = useContext(ErrorContext);
 	const dispatch = useDispatch();
 	const { openedModals, toggleModal } = useModal();
 	const formStructure = getFormStructure();
+	let modalText = "";
 	const getRandomEmployees = () => {
 		const employees = createRandmonEmployees(100);
 		employees.forEach((employee) => {
 			dispatch(employeeActions.setEmployee(employee));
 		});
-		alert("Employees created !");
+		modalText = "Random employees created !";
+		toggleModal("modal-success");
 	};
 	const clearEmployees = () => {
+		console.log("Clear");
 		dispatch(employeeActions.clearEmployees());
-		alert("Employees removed !");
+		modalText = "Employees list cleaned !";
+		toggleModal("modal-success");
 	};
 
 	const defaultValues = {
@@ -51,13 +56,11 @@ const EmployeeForm = () => {
 		formState,
 		formState: { isSubmitSuccessful },
 	} = useForm({ defaultValues });
+
 	useEffect(() => {
 		if (formState.isSubmitSuccessful) {
 			reset(defaultValues);
 		}
-		if (!render) toggleModal("modal-success");
-		console.log({ init: render });
-		render++;
 	}, [formState, isSubmitSuccessful, reset]);
 	const selectStyle = {
 		control: (styles) => ({
@@ -192,6 +195,7 @@ const EmployeeForm = () => {
 		setError(false);
 		const { success, errors } = dispatch(employeeActions.setEmployee(data));
 		errors.forEach((e) => setError(e.property, e.msg));
+		modalText = "Employee created !";
 		if (success) toggleModal("modal-success");
 	};
 
@@ -216,28 +220,21 @@ const EmployeeForm = () => {
 						);
 					})}
 				</div>
-
+				{/* TODO : Faire comme je le sentais... */}
 				<button className="btn btn-submit" type="submit">
 					Save
 				</button>
+				<FormMenu random={getRandomEmployees} clear={clearEmployees} />
 			</form>
-			{/* 
-			TODO :
-			- Display modal with style :cool:
-			- Add buttons to show modal with buttons ! :O
-			*/}
 
 			<Modal
 				id={"modal-success"}
 				isOpen={openedModals["modal-success"]}
 				onClose={() => toggleModal("modal-success")}
 				title="Success"
-				// theme={"#6b733f"}
-				backgroundStyle={false}
-				closeText="x"
-				content="Employee created !"
-				contentStyle={{ padding: "2rem 0" }}
-				modalStyle={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+				content={modalText}
+				index={0}
+				contentStyle={{ padding: "2rem 0 1rem 0" }}
 			/>
 		</>
 	);

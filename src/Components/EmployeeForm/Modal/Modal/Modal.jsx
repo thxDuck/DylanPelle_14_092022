@@ -7,7 +7,15 @@ import useModal from "./Hooks";
 import * as scripts from "../scripts/scripts";
 import ERRORS from "../scripts/errors";
 import "../styles/animations.css";
-const modalContainer = document.getElementById("modals");
+
+if (!document.getElementById("__thxModals_portal___")) {
+	const portalContainer = document.createElement("div");
+	portalContainer.id = "__thxModals_portal___";
+	portalContainer.style.position = "absolute";
+	portalContainer.style.top = "0";
+	portalContainer.style.left = "0";
+	document.getElementsByTagName("body")[0].prepend(portalContainer);
+}
 
 const Modal = (props) => {
 	const {
@@ -67,10 +75,6 @@ const Modal = (props) => {
 		};
 	}, [isOpen, exitOnEscape]);
 
-	if (!children && !header && !content && !footer) {
-		console.error(ERRORS.CONTENT.NO_CONTENT);
-		return false;
-	}
 	// Close
 	const close = () => {
 		const duration = parseInt(animationDuration) || 0;
@@ -148,15 +152,15 @@ const Modal = (props) => {
 			</div>
 		);
 	};
-	return (
-		isOpen &&
-		(backgroundStyle === false ? (
-			ReactDOM.createPortal(getModal(), modalContainer)
-		) : (
-			<div className="bg-modal" style={bgStyle}>
-				{getModal()}
-			</div>
-		))
+	return (isOpen && ReactDOM.createPortal(
+			(backgroundStyle === false ? (
+				getModal()
+			) : (
+				<div className="bg-modal" style={bgStyle}>
+					{getModal()}
+				</div>
+			)),
+		document.getElementById("__thxModals_portal___"))
 	);
 };
 const colorProp = (props, propName) => {

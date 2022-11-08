@@ -23,8 +23,7 @@ export const getHeadContent = (titleText, closeButton) => {
 		</div>
 	);
 };
-
-export const generateStyles = (theme, textColor, customBackgroundStyle, modalSize) => {
+export const generateStyles = (theme, textColor, modalStyle, customBackgroundStyle, modalSize) => {
 	const centerModalWithoutBg = {
 		left: 0,
 		right: 0,
@@ -56,7 +55,13 @@ export const generateStyles = (theme, textColor, customBackgroundStyle, modalSiz
 			modStyle[cssProp] = value;
 		}
 	}
-	return { bgStyle, modStyle };
+	if (!!modalStyle) {
+		for (const cssProp in modalStyle) {
+			const value = modalStyle[cssProp];
+			modStyle[cssProp] = value;
+		}
+	}
+	return { bgStyle,  modStyle };
 };
 
 const getModalSize = (size = "md") => {
