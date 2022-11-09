@@ -1,193 +1,134 @@
-const models = {
-	employee: [
+export const columnTable = [
+	{
+		key: "firstName",
+		name: "First Name",
+		sortable: true,
+	},
+	{
+		key: "lastName",
+		name: "Last Name",
+		sortable: true,
+	},
+	{
+		key: "startDate",
+		name: "Start Date",
+		sortable: true,
+	},
+	{
+		key: "department",
+		name: "Department",
+		sortable: true,
+		width: "11rem",
+	},
+	{
+		key: "dateOfBirth",
+		name: "Date of Birth",
+		sortable: true,
+	},
+	{
+		key: "street",
+		name: "Street",
+		sortable: true,
+		width: "18rem",
+	},
+	{
+		key: "city",
+		name: "City",
+		sortable: true,
+	},
+	{
+		key: "state",
+		name: "State",
+		sortable: true,
+	},
+	{
+		key: "zipCode",
+		name: "Zip Code",
+		sortable: true,
+	},
+];
+export const employeeByCat = {
+	"Personnal Informations": [
 		{
 			key: "firstName",
 			name: "First Name",
 			type: "string",
-			sortable: true,
 		},
 		{
 			key: "lastName",
 			name: "Last Name",
 			type: "string",
-			sortable: true,
 		},
 		{
 			key: "dateOfBirth",
 			name: "Date of Birth",
 			type: "date",
-			sortable: true,
 		},
 		{
 			key: "startDate",
 			name: "Start Date",
 			type: "date",
-			sortable: true,
 		},
 		{
 			key: "department",
 			name: "Department",
 			type: "select",
-			sortable: true,
+			value: "",
 		},
+	],
+	Address: [
 		{
 			key: "street",
 			name: "Street",
 			type: "string",
-			sortable: true,
+			value: "",
 		},
 		{
 			key: "city",
 			name: "City",
 			type: "string",
-			sortable: true,
+			value: "",
 		},
 		{
 			key: "state",
 			name: "State",
 			type: "select",
-			sortable: true,
+			value: "",
 		},
 		{
 			key: "zipCode",
 			name: "Zip Code",
 			type: "number",
-			sortable: true,
+			value: "",
 		},
 	],
-	employeeByCat: {
-		"Personnal Informations": [
-			{
-				key: "firstName",
-				name: "First Name",
-				type: "string",
-			},
-			{
-				key: "lastName",
-				name: "Last Name",
-				type: "string",
-			},
-			{
-				key: "dateOfBirth",
-				name: "Date of Birth",
-				type: "date",
-			},
-			{
-				key: "startDate",
-				name: "Start Date",
-				type: "date",
-			},
-			{
-				key: "department",
-				name: "Department",
-				type: "select",
-				value: "",
-			},
-		],
-		Address: [
-			{
-				key: "street",
-				name: "Street",
-				type: "string",
-				value: "",
-			},
-			{
-				key: "city",
-				name: "City",
-				type: "string",
-				value: "",
-			},
-			{
-				key: "state",
-				name: "State",
-				type: "select",
-				value: "",
-			},
-			{
-				key: "zipCode",
-				name: "Zip Code",
-				type: "number",
-				value: "",
-			},
-		],
+};
+export const employeePropertiesType = {
+	firstName: {
+		type: "string",
 	},
-	personnalInformations: [
-		{
-			key: "firstName",
-			name: "First Name",
-			type: "string",
-		},
-		{
-			key: "lastName",
-			name: "Last Name",
-			type: "string",
-		},
-		{
-			key: "dateOfBirth",
-			name: "Date of Birth",
-			type: "date",
-		},
-		{
-			key: "startDate",
-			name: "Start Date",
-			type: "date",
-		},
-	],
-	address: [
-		{
-			key: "street",
-			name: "Street",
-			type: "string",
-		},
-		{
-			key: "city",
-			name: "City",
-			type: "string",
-		},
-		{
-			key: "state",
-			name: "State",
-			type: "select",
-		},
-		{
-			key: "zipCode",
-			name: "Zip Code",
-			type: "number",
-		},
-	],
-	buisnessInformations: {
-		key: "department",
-		name: "Department",
-		type: "select",
+	lastName: {
+		type: "string",
 	},
-	data: {
-		firstName: {
-			type: "string",
-		},
-		lastName: {
-			type: "string",
-		},
-		dateOfBirth: {
-			type: "date",
-		},
-		startDate: {
-			type: "date",
-		},
-		street: {
-			type: "string",
-		},
-		city: {
-			type: "string",
-		},
-		state: {
-			type: "enum",
-		},
-		zipCode: {
-			type: "integer",
-		},
-		department: {
-			type: "enum",
-		},
+	dateOfBirth: {
+		type: "date",
+	},
+	startDate: {
+		type: "date",
+	},
+	street: {
+		type: "string",
+	},
+	city: {
+		type: "string",
+	},
+	state: {
+		type: "enum",
+	},
+	zipCode: {
+		type: "integer",
+	},
+	department: {
+		type: "enum",
 	},
 };
-export default models;

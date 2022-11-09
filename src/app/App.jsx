@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { persistor, store } from "../utils/store";
-import { ErrorProvider } from "../utils/context.jsx";
+import { ErrorProvider } from "../services/context.jsx";
 import { PersistGate } from "redux-persist/integration/react";
 
 import "./App.scss";

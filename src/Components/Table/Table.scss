@@ -1,14 +1,15 @@
 header ~ div {
 	border-radius: unset !important;
 }
+[role="cell"] {
+	text-align: left;
+}
 .rdt_Table {
 	.rdt_TableHeadRow {
 		background-color: var(--secondary);
 		font-size: 0.9rem;
 		.rdt_TableCol_Sortable {
-			display: flex;
-			flex-direction: column;
-            justify-content: center;
+			min-width: fit-content;
 		}
 	}
 	.rdt_TableBody {

@@ -1,5 +1,4 @@
 import React, { useState, createContext } from "react";
-import models from "../data/models";
 const employeeProperties = {
 	firstName: null,
 	lastName: null,

@@ -19,11 +19,6 @@ const data = {
 		],
 		state: [
 			{
-				name: "",
-				abbreviation: "",
-				disable: true,
-			},
-			{
 				name: "Alabama",
 				abbreviation: "AL",
 			},

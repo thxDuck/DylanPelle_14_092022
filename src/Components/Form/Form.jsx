@@ -5,10 +5,12 @@ import Modal, { useModal } from "thx-modal";
 import { useDispatch } from "react-redux";
 import * as employeeActions from "../../features/employee";
 
-import { registerEmployee } from "../../services/formServices";
-import Input from "../Forms/Input";
-import Label from "../Forms/Label";
-import "../EmployeeForm/EmployeeForm.scss";
+import { checkEmployee } from "../../services/formServices";
+import Input from "../FormComponents/Input";
+import Label from "../FormComponents/Label";
+import "./Form.scss";
+
+
 const Form = (props) => {
 	const { employee, structure } = props;
 	const dispatch = useDispatch();
@@ -32,14 +34,12 @@ const Form = (props) => {
 	useEffect(() => {
 		if (isSubmitSuccess) {
 			setIsSubmitSuccess(false);
-            console.log('reset => ', employee);
-            
 			reset(employee);
 		}
 	}, [employee, isSubmitSuccess, reset]);
 
 	const onSubmit = (data) => {
-		const { success, errors: newErrors, employee } = registerEmployee(data);
+		const { success, errors: newErrors, employee } = checkEmployee(data);
 		if (success) {
             dispatch(employeeActions.setEmployee(employee));
             setIsSubmitSuccess(true)

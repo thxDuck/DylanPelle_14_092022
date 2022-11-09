@@ -2,12 +2,10 @@ import React from "react";
 import Modal, { useModal } from "thx-modal";
 import { useDispatch } from "react-redux";
 import * as employeeActions from "../../features/employee";
-import { createRandmonEmployees } from "../../utils/mock";
+import { createRandmonEmployees } from "../../data/mock";
 
 import "./FormMenu.scss";
-
-const FormMenu = (props) => {
-	// const { openedModals, toggleModal } = props;
+const FormMenu = () => {
 	const { openedModals, toggleModal } = useModal();
 	const dispatch = useDispatch();
 
@@ -16,7 +14,7 @@ const FormMenu = (props) => {
 		employees.forEach((employee) => {
 			dispatch(employeeActions.setEmployee(employee));
 		});
-		alert("Employees created !");
+		toggleModal("employeeCreated");
 	};
 	const cleanEmployeeList = () => {
 		dispatch(employeeActions.clearEmployees());
@@ -24,14 +22,14 @@ const FormMenu = (props) => {
 	};
 	return (
 		<>
-			<button onClick={() => toggleModal("menu")}>FormMenu</button>
+			<button className="menu-btn" onClick={() => toggleModal("menu")}>
+				Menu
+			</button>
 			<Modal
 				id="menu"
 				onClose={toggleModal}
 				isOpen={openedModals["menu"]}
-				modalSize="sm"
-				closeText={"x"}
-				exitOnClick={true}>
+				closeText={"x"}>
 				<div id="buttonList">
 					<button onClick={() => cleanEmployeeList()}>Clear list</button>
 					<button onClick={() => getRandomEmployee()}>Get 100 random employees</button>
@@ -42,8 +40,7 @@ const FormMenu = (props) => {
 				onClose={toggleModal}
 				isOpen={openedModals["clearSuccess"]}
 				modalSize="md"
-				closeText={"x"}
-				exitOnClick={true}>
+				closeText={"x"}>
 				<div id="buttonList">Sucess clean employee list !</div>
 			</Modal>
 			<Modal
@@ -51,8 +48,7 @@ const FormMenu = (props) => {
 				onClose={toggleModal}
 				isOpen={openedModals["employeeCreated"]}
 				modalSize="md"
-				closeText={"x"}
-				exitOnClick={true}>
+				closeText={"x"}>
 				<div id="buttonList">Sucess create random employees !</div>
 			</Modal>
 		</>

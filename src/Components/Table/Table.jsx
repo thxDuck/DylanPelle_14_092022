@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import DataTable from "react-data-table-component";
-import FilterComponent from "../Forms/FilterComponent.jsx";
-import "./EmployeeList.scss";
+import FilterComponent from "../../Components/FormComponents/FilterComponent.jsx";
+import "./Table.scss";
 import { selectAllEmployees } from "../../utils/selectors";
 
 import { getColumns, parseEmployees } from "../../services/formServices.js";
 
-const EmployeeList = () => {
+const Table = () => {
 	const employees = parseEmployees(useSelector(selectAllEmployees));
 	const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
 	const [filterText, setFilterText] = useState("");
@@ -35,7 +35,6 @@ const EmployeeList = () => {
 		return (
 			<FilterComponent
 				onFilter={(e) => setFilterText(e.target.value)}
-				placeholder="Coucou"
 				filterText={filterText}
 			/>
 		);
@@ -47,14 +46,14 @@ const EmployeeList = () => {
 			data={filteredItems}
 			pagination
 			paginationResetDefaultPage={resetPaginationToggle}
+			paginationRowsPerPageOptions={[10, 20, 30, 50, 100]}
 			subHeader
-			subHeaderComponent={subHeaderComponentMemo}
-			theme="solarized"
 			fixedHeader
-			responsive={true}
+			subHeaderComponent={subHeaderComponentMemo}
 			selectableRows={false}
+            responsive={true}
 		/>
 	);
 };
 
-export default EmployeeList;
+export default Table;

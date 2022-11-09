@@ -1,27 +1,13 @@
 import data from "../data/data.js";
-import models from "../data/models.js";
+import { columnTable, employeeByCat, employeePropertiesType } from "../data/models.js";
 import ERROR from "./errors.js";
 
 const alphanumericRegexp = /[^a-z0-9] /gi;
 
-export const parseEmployees = (employees) => {
-	return employees.map((raw_data) => {
-		const employee = { ...raw_data };
-		employee.startDate = new Date(employee.startDate).toLocaleString().slice(0, 10);
-		employee.dateOfBirth = new Date(employee.dateOfBirth).toLocaleString().slice(0, 10);
-		employee.department = employee.department.name;
-		employee.abbreviation = employee.state.abbreviation;
-		employee.state = employee.state.name;
-		return employee;
-	});
-};
-
 const checkSelect = (value, property) => {
 	if (!value) return { error: ERROR.FORM.REQUIRED };
-	const options = data.options;
-	const selectedOption = options[property].find(
-		(date) => date.name.toLowerCase() === value.toLowerCase()
-	);
+	const options = data.options[property];
+	const selectedOption = options.find((date) => date.name.toLowerCase() === value.toLowerCase());
 	return !!selectedOption ? { checkedValue: selectedOption } : { error: ERROR.FORM.REQUIRED };
 };
 
@@ -39,25 +25,26 @@ export const checkDateCoherence = (date, property, employee) => {
 	return { checkedValue: date };
 };
 
-export const registerEmployee = (raw_employee) => {
+export const checkEmployee = (raw_employee) => {
 	const employee = {};
 	let success = true;
-	const errors = {}
+	const errors = {};
+
 	for (const property in raw_employee) {
 		const raw_value = raw_employee[property];
 		const { checkedValue, error } = checkValue(raw_employee, property, raw_value);
 		if (!!error) {
 			success = false;
-			errors[property] = error.msg
+			errors[property] = error.msg;
 		} else {
 			employee[property] = checkedValue;
 		}
 	}
-
+	console.log({ employee });
 	return { success, errors: errors, employee };
 };
 export const checkValue = (employee, property, value) => {
-	const dataModel = models.data[property];
+	const dataModel = employeePropertiesType[property];
 	switch (dataModel.type) {
 		case "string":
 			value = value.replace(alphanumericRegexp, "");
@@ -79,11 +66,11 @@ export const checkValue = (employee, property, value) => {
 };
 
 export const getFormStructure = () => {
-	return models.employeeByCat;
+	return employeeByCat;
 };
 
 export const getColumns = () => {
-	const columns = models.employee;
+	const columns = columnTable;
 	columns.forEach((c) => {
 		c.selector = (row) => row[c.key];
 	});
@@ -95,4 +82,14 @@ export const getOptionsForSelect = (id) => {
 	if (!raw_options) return false;
 	const options = raw_options.map((item) => ({ value: item.name, label: item.name }));
 	return options;
+};
+export const parseEmployees = (employees) => {
+	return employees.map((raw_data) => {
+		const employee = { ...raw_data };
+		employee.startDate = new Date(employee.startDate).toLocaleString().slice(0, 10);
+		employee.dateOfBirth = new Date(employee.dateOfBirth).toLocaleString().slice(0, 10);
+		employee.department = employee.department.value;
+		employee.state = employee.state.abbreviation;
+		return employee;
+	});
 };

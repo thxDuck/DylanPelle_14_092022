@@ -1237,7 +1237,7 @@ export const createRandmonEmployees = (nb) => {
 			department: { value: rdmString(department) },
 			street: rdmString(cities) + "-" + rdmString(cities),
 			city: rdmString(cities),
-			state: { value: state.name },
+			state: { ...state },
 			zipCode: Math.floor(Math.random() * 99999),
 		};
 		do {

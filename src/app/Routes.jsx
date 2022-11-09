@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import EmployeeForm from "../Components/EmployeeForm/EmployeeForm.jsx";
-import EmployeeList from "../Components/EmployeeList/EmployeeList.jsx";
+import EmployeeForm from "../Pages/EmployeeForm/EmployeeForm.jsx";
+import EmployeeList from "../Pages/EmployeeList/EmployeeList.jsx";
 
 const RoutesApp = () => {
 	return (
