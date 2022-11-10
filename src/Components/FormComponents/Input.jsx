@@ -93,6 +93,7 @@ const Input = (props) => {
 						render={({ field }) => (
 							<Select
 								placeholderText={label}
+								inputId={key}
 								options={getOptionsForSelect(key)}
 								menuPlacement="top"
 								onChange={(e) => field.onChange(e)}

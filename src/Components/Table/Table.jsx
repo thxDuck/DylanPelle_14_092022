@@ -10,7 +10,7 @@ import { getColumns, parseEmployees } from "../../services/formServices.js";
 
 const Table = () => {
 	const employees = parseEmployees(useSelector(selectAllEmployees));
-	const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+	const [resetPaginationToggle] = useState(false);
 	const [filterText, setFilterText] = useState("");
 
 	const columns = getColumns();

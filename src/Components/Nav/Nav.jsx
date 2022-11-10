@@ -13,7 +13,9 @@ const Nav = () => {
 						<span className="nav-tick"></span>
 					</NavLink>
 				</li>
-				<span className="vertical-separator"></span>
+
+				<li className="notLi vertical-separator" aria-hidden="true"></li>
+
 				<li>
 					<NavLink className={({ isActive }) => (isActive ? "active" : "")} to="/list">
 						All employees

@@ -11,10 +11,10 @@ const emptyEmployee = {
 	dateOfBirth: new Date().setFullYear(new Date().getFullYear() - 48),
 	startDate: new Date(),
 	department: { label: "", value: "" },
-	street: "Meta street",
-	city: "Metaverse",
+	street: "Boulevard du Roi René",
+	city: "Angers",
 	state: { label: "", value: "" },
-	zipCode: 66000,
+	zipCode: 49000,
 };
 
 const EmployeeForm = () => {
