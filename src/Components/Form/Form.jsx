@@ -1,15 +1,13 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Modal, { useModal } from "thx-modal";
 import { useDispatch } from "react-redux";
-import * as employeeActions from "../../features/employee";
+import * as employeeActions from "../../redux/employee";
 
-import { checkEmployee } from "../../services/formServices";
+import { checkEmployee } from "../../scripts/formServices";
 import Input from "../FormComponents/Input";
 import Label from "../FormComponents/Label";
 import "./Form.scss";
-
 
 const Form = (props) => {
 	const { employee, structure } = props;
@@ -27,9 +25,7 @@ const Form = (props) => {
 		zipCode: null,
 		department: null,
 	});
-
 	const { register, handleSubmit, control, reset } = useForm({ defaultValues: employee });
-
 
 	useEffect(() => {
 		if (isSubmitSuccess) {
@@ -52,7 +48,7 @@ const Form = (props) => {
 		<>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="form-grp personnalInfos">
-					{structure["Personnal Informations"].map((info, index) => {
+					{structure["Personnal Informations"].map((info) => {
 						return (
 							<Label
 								id={info.key}
@@ -72,7 +68,7 @@ const Form = (props) => {
 					})}
 				</div>
 				<div className="form-grp address">
-					{structure["Address"].map((info, index) => {
+					{structure["Address"].map((info) => {
 						return (
 							<Label
 								id={info.key}

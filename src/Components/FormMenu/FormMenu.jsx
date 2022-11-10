@@ -1,8 +1,8 @@
 import React from "react";
 import Modal, { useModal } from "thx-modal";
 import { useDispatch } from "react-redux";
-import * as employeeActions from "../../features/employee";
-import { createRandmonEmployees } from "../../data/mock";
+import * as employeeActions from "../../redux/employee";
+import { createRandomEmployee } from "../../scripts/mock";
 
 import "./FormMenu.scss";
 const FormMenu = () => {
@@ -10,7 +10,7 @@ const FormMenu = () => {
 	const dispatch = useDispatch();
 
 	const getRandomEmployee = () => {
-		const employees = createRandmonEmployees(100);
+		const employees = createRandomEmployee(100);
 		employees.forEach((employee) => {
 			dispatch(employeeActions.setEmployee(employee));
 		});

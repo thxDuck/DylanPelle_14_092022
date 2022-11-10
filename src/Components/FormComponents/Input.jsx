@@ -1,12 +1,12 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import Select from "react-select";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { getOptionsForSelect } from "../../services/formServices";
+import { getOptionsForSelect } from "../../scripts/formServices";
 import { selectStyle } from "./selectStyle.js";
+
 const Input = (props) => {
 	const { formKey, type, name, value, register, control } = props;
 
@@ -103,14 +103,12 @@ const Input = (props) => {
 						)}
 					/>
 				);
-
 			default:
 				break;
 		}
 	};
-	const input = getInput(formKey, type, name, value);
 
-	return <>{input}</>;
+	return <>{getInput(formKey, type, name, value)}</>;
 };
 
 export default Input;

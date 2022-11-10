@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-
 import DataTable from "react-data-table-component";
-import FilterComponent from "../../Components/FormComponents/FilterComponent.jsx";
-import "./Table.scss";
-import { selectAllEmployees } from "../../utils/selectors";
 
-import { getColumns, parseEmployees } from "../../services/formServices.js";
+import FilterComponent from "./FilterComponent.jsx";
+import { getColumnsForDataTable, parseEmployeesForDataTable } from "../../scripts/formServices.js";
+import { selectAllEmployees } from "../../redux/selectors";
+import "./Table.scss";
 
 const Table = () => {
-	const employees = parseEmployees(useSelector(selectAllEmployees));
+	const employees = parseEmployeesForDataTable(useSelector(selectAllEmployees));
 	const [resetPaginationToggle] = useState(false);
 	const [filterText, setFilterText] = useState("");
 
-	const columns = getColumns();
+	const columns = getColumnsForDataTable();
+	
 	const filteredItems = employees.filter(
 		(item) =>
 			(item.firstName && item.firstName.toLowerCase().includes(filterText.toLowerCase())) ||
@@ -47,11 +47,11 @@ const Table = () => {
 			pagination
 			paginationResetDefaultPage={resetPaginationToggle}
 			paginationRowsPerPageOptions={[10, 20, 30, 50, 100]}
-			subHeader
-			fixedHeader
 			subHeaderComponent={subHeaderComponentMemo}
+			fixedHeader
+			subHeader
 			selectableRows={false}
-            responsive={true}
+			responsive={true}
 		/>
 	);
 };

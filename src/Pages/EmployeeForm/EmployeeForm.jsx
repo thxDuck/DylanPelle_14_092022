@@ -1,7 +1,7 @@
 import React from "react";
 
 import Form from "../../Components/Form/Form";
-import { getFormStructure } from "../../services/formServices";
+import { getFormStructure } from "../../scripts/formServices";
 import FormMenu from "../../Components/FormMenu/FormMenu.jsx";
 import "./EmployeeForm.scss"
 
