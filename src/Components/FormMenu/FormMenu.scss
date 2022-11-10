@@ -1,8 +1,14 @@
 .menu-btn {
-	padding: 0.2rem 0.6rem;
+	padding: 0.8rem 1rem;
 	background-color: var(--primary);
-
-	align-self: flex-end;
+	border-radius: 11px;
+	width: 66%;
+	align-self: center;
+	@media (min-width: 810px) {
+		align-self: flex-start;
+		width: fit-content;
+		padding: 0.5rem 0.7rem;
+	}
 }
 
 #buttonList {
