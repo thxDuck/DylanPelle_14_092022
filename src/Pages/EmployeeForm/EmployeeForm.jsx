@@ -2,7 +2,6 @@ import React from "react";
 
 import Form from "../../Components/Form/Form";
 import { getFormStructure } from "../../scripts/formServices";
-import FormMenu from "../../Components/FormMenu/FormMenu.jsx";
 import "./EmployeeForm.scss"
 
 const emptyEmployee = {
@@ -23,7 +22,6 @@ const EmployeeForm = () => {
 	return (
 		<section id="section-form">
 			<Form employee={emptyEmployee} structure={formStructure} />
-			<FormMenu />
 		</section>
 	);
 };

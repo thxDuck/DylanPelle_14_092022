@@ -13,7 +13,6 @@ const Table = () => {
 	const [filterText, setFilterText] = useState("");
 
 	const columns = getColumnsForDataTable();
-	
 	const filteredItems = employees.filter(
 		(item) =>
 			(item.firstName && item.firstName.toLowerCase().includes(filterText.toLowerCase())) ||

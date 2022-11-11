@@ -1,17 +1,17 @@
 .menu-btn {
-	padding: 0.8rem 1rem;
 	background-color: #93ad18;
 	border-radius: 11px;
+	padding: 0.5rem 1rem;
+	cursor: pointer;
 	width: 66%;
-	align-self: center;
-	@media (min-width: 810px) {
+	@media (min-width: 500px) {
 		align-self: flex-start;
 		width: fit-content;
-		padding: 0.5rem 0.7rem;
+		padding: 0.5rem 1rem;
 	}
 }
 
-#buttonList {
+#modal-content {
 	display: flex;
 	justify-content: space-evenly;
 	gap: 1rem;

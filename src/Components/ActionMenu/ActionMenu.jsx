@@ -1,24 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal, { useModal } from "thx-modal";
 import { useDispatch } from "react-redux";
 import * as employeeActions from "../../redux/employee";
 import { createRandomEmployee } from "../../scripts/mock";
 
-import "./FormMenu.scss";
-const FormMenu = () => {
+import "./ActionMenu.scss";
+const ActionMenu = () => {
 	const { openedModals, toggleModal } = useModal();
 	const dispatch = useDispatch();
-
+	const [modalContent, setModalContent] = useState("");
 	const getRandomEmployee = () => {
 		const employees = createRandomEmployee(100);
 		employees.forEach((employee) => {
 			dispatch(employeeActions.setEmployee(employee));
 		});
-		toggleModal("employeeCreated");
+		setModalContent("Employees created !");
+		toggleModal("success-modal");
 	};
 	const cleanEmployeeList = () => {
 		dispatch(employeeActions.clearEmployees());
-		toggleModal("clearSuccess");
+		setModalContent("Employees cleared !");
+		toggleModal("success-modal");
 	};
 	return (
 		<>
@@ -29,30 +31,26 @@ const FormMenu = () => {
 				id="menu"
 				onClose={toggleModal}
 				isOpen={openedModals["menu"]}
+				title={"Select action !"}
 				closeText={"x"}>
-				<div id="buttonList">
+				<div id="modal-content">
 					<button onClick={() => cleanEmployeeList()}>Clear list</button>
 					<button onClick={() => getRandomEmployee()}>Get 100 random employees</button>
 				</div>
 			</Modal>
+
 			<Modal
-				id="clearSuccess"
+				id="success-modal"
 				onClose={toggleModal}
-				isOpen={openedModals["clearSuccess"]}
-				modalSize="md"
+				isOpen={openedModals["success-modal"]}
+				modalSize="sm"
+				exitOnClick={true}
+				title="Success"
 				closeText={"x"}>
-				<div id="buttonList">Sucess clean employee list !</div>
-			</Modal>
-			<Modal
-				id="employeeCreated"
-				onClose={toggleModal}
-				isOpen={openedModals["employeeCreated"]}
-				modalSize="md"
-				closeText={"x"}>
-				<div id="buttonList">Sucess create random employees !</div>
+				<div id="modal-content">{modalContent}</div>
 			</Modal>
 		</>
 	);
 };
 
-export default FormMenu;
+export default ActionMenu;
