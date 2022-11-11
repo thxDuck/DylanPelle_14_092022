@@ -15,7 +15,7 @@
 		"redux": "^4.2.0",
 		"redux-persist": "^6.0.0",
 		"sass": "^1.56.1",
-		"thx-modal": "^0.1.4"
+		"thx-modal": "^0.1.5"
 	},
 	"scripts": {
 		"start": "react-scripts start",

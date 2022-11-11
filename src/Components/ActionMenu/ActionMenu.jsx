@@ -32,6 +32,8 @@ const ActionMenu = () => {
 				onClose={toggleModal}
 				isOpen={openedModals["menu"]}
 				title={"Select action !"}
+				backgroundStyle={false}
+				index={"1"}
 				closeText={"x"}>
 				<div id="modal-content">
 					<button onClick={() => cleanEmployeeList()}>Clear list</button>
@@ -43,7 +45,9 @@ const ActionMenu = () => {
 				id="success-modal"
 				onClose={toggleModal}
 				isOpen={openedModals["success-modal"]}
+				backgroundStyle={false}
 				modalSize="sm"
+				index={"2"}
 				exitOnClick={true}
 				title="Success"
 				closeText={"x"}>
